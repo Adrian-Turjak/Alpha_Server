@@ -2,25 +2,11 @@ var db = require('./models');
 var auth = require('./auth');
 
 function all_quotes(req, res) {
-  if(!req.headers.hasOwnProperty('token')) {
-    res.statusCode = 403;
-    return res.send('Error 403: Not logged in.');
-  }
-
-  db.Token.findOne({where: {token: req.headers.token}}).then(function(token) {
-
-    var now = new Date(Date.now());
-
-    if(token && token.expires > now){
-      db.Quote.findAll().then(function(quotes){
-        return res.send(quotes);  
-      });
-    } else {
-      res.statusCode = 403;
-      return res.send('Error 403: Token has expired.');
-    }
-    
-  }); 
+  auth.check_token(req, res, function(req, res){
+    db.Quote.findAll().then(function(quotes){
+      return res.send(quotes);  
+    });
+  })
 };
 
 function random_quote(req, res) {

@@ -44,9 +44,31 @@ function register(req, res) {
 };
 
 
+function check_token(req, res, callback){
+  if(!req.headers.hasOwnProperty('token')) {
+    res.statusCode = 403;
+    return res.send('Error 403: Not logged in.');
+  }
+
+  db.Token.findOne({where: {token: req.headers.token}}).then(function(token) {
+
+    var now = new Date(Date.now());
+
+    if(token && token.expires > now){
+      return callback(req, res);
+    } else {
+      res.statusCode = 403;
+      return res.send('Error 403: Token has expired.');
+    }
+    
+  }); 
+}
+
+
 var auth = {
     login: login,
-    hashPassword: hashPassword
+    hashPassword: hashPassword,
+    check_token: check_token
 };
 
 global.auth = auth
