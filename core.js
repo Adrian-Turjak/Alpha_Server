@@ -33,7 +33,7 @@ app.get('/quote/all', quotes.all_quotes);
 app.get('/quote/random', quotes.random_quote);
 app.get('/quote/:id', quotes.quote_by_id);
 app.post('/quote', quotes.create_quote);
-app.delete('/quote/:id', quote.delete_quote);
+app.delete('/quote/:id', quotes.delete_quote);
 
 
 // use PORT set as an environment variable
