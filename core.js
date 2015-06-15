@@ -1,22 +1,16 @@
-// use the express middleware
 var express = require('express');
-
-// make express handle JSON and other requests
 var bodyParser = require('body-parser');
-
-// use cross origin resource sharing
 var cors = require('cors');
-
-// instantiate app
-var app = express();
-
-
-// setup database
-var db = require('./models');
-
 var crypto = require('crypto');
 
+
+// Our Modules:
+var db = require('./models');
 var auth = require('./auth');
+var quotes = require('./quotes');
+
+
+var app = express();
 
 
 // make sure we can parse JSON passed in the body or encoded into url
@@ -28,164 +22,19 @@ app.use(express.static(__dirname));
 // make sure we use CORS to avoid cross domain problems
 app.use(cors());
 
+
+// Auth Endpoins
 app.post('/auth/login', auth.login);
+app.post('/auth/register', auth.login);
 
-app.get('/quote/all', function(req,res) {
-  if(!req.headers.hasOwnProperty('token')) {
-    res.statusCode = 403;
-    return res.send('Error 403: Not logged in.');
-  }
 
-  db.Token.findOne({where: {token: req.headers.token}}).then(function(token) {
+// Quotes endpoints
+app.get('/quote/all', quotes.all_quotes);
+app.get('/quote/random', quotes.random_quote);
+app.get('/quote/:id', quotes.quote_by_id);
+app.post('/quote', quotes.create_quote);
+app.delete('/quote/:id', quote.delete_quote);
 
-    var now = new Date(Date.now());
-
-    if(token && token.expires > now){
-      db.Quote.findAll().then(function(quotes){
-        return res.send(quotes);  
-      });
-    } else {
-      res.statusCode = 403;
-      return res.send('Error 403: Token has expired.');
-    }
-    
-  }); 
-});
-
-app.get('/quote/random', function(req, res) {
-  if(!req.headers.hasOwnProperty('token')) {
-    res.statusCode = 403;
-    return res.send('Error 403: Not logged in.');
-  }
-
-  db.Token.findOne({where: {token: req.headers.token}}).then(function(token) {
-
-    var now = new Date(Date.now());
-
-    if(token && token.expires > now){
-      db.Quote.findAll().then(function(quotes){
-        var id = Math.floor(Math.random() * quotes.length);
-        db.User.findById(quotes[id].UserId).then(function(user){
-          var q = {
-            "id": quotes[id].id,
-            "author": quotes[id].author,
-            "text": quotes[id].text,
-            "submitted_by": user.username
-          };
-          res.send(q);
-        });   
-      });
-    } else {
-      res.statusCode = 403;
-      return res.send('Error 403: Token has expired.');
-    }
-    
-  });   
-});
-
-app.get('/quote/:id', function(req, res) {
-  if(!req.headers.hasOwnProperty('token')) {
-    res.statusCode = 403;
-    return res.send('Error 403: Not logged in.');
-  }
-
-  db.Token.findOne({where: {token: req.headers.token}}).then(function(token) {
-
-    var now = new Date(Date.now());
-
-    if(token && token.expires > now){
-      db.Quote.findById(req.params.id).then(function(quote){
-        if(!quote) {
-          res.statusCode = 404;
-          return res.send('Error 404: No quote found');
-        }
-
-        db.User.findById(quote.UserId).then(function(user){
-          var q = {
-            "id": quote.id,
-            "author": quote.author,
-            "text": quote.text,
-            "submitted_by": user.username
-          };
-          return res.send(q);
-        });
-      });
-    } else {
-      res.statusCode = 403;
-      return res.send('Error 403: Token has expired.');
-    }
-    
-  });      
-});
-
-app.post('/quote', function(req, res) {
-  if(!req.headers.hasOwnProperty('token')) {
-    res.statusCode = 403;
-    return res.send('Error 403: Not logged in.');
-  }
-
-  if(!req.body.hasOwnProperty('author') || !req.body.hasOwnProperty('text')) {
-    res.statusCode = 400;
-    return res.send('Error 400: Post syntax incorrect.');
-  }
-
-  db.Token.findOne({where: {token: req.headers.token}}).then(function(token) {
-
-    var now = new Date(Date.now());
-
-    if(token && token.expires > now){
-      db.User.findById(token.UserId).then(function(user){
-        db.Quote.create({
-          author : req.body.author,
-          text : req.body.text,
-          UserId: user.id
-        }).then(function(quote){
-          console.log("Added!");
-
-          var q = {
-            "id": quote.id,
-            "author": quote.author,
-            "text": quote.text,
-            "submitted_by": user.username
-          };
-          res.send(q);
-        });
-      });
-    } else {
-      res.statusCode = 403;
-      return res.send('Error 403: Token has expired.');
-    }
-
-    
-  });  
-});
-
-app.delete('/quote/:id', function(req, res) {
-  if(!req.headers.hasOwnProperty('token')) {
-    res.statusCode = 403;
-    return res.send('Error 403: Not logged in.');
-  }
-
-  db.Token.findOne({where: {token: req.headers.token}}).then(function(token) {
-
-    var now = new Date(Date.now());
-
-    if(token && token.expires > now){
-      db.Quote.findById(req.params.id).then(function(quote){
-        if(!quote) {
-          res.statusCode = 404;
-          return res.send('Error 404: No quote found');
-        }
-        quote.destroy().then(function(){
-          return res.send('Quote deleted');
-        });
-      });
-    } else {
-      res.statusCode = 403;
-      return res.send('Error 403: Token has expired.');
-    }    
-  });      
-});
 
 // use PORT set as an environment variable
 var server = app.listen(process.env.PORT, function() {

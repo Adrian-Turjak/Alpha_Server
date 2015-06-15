@@ -34,6 +34,10 @@ function login(req, res) {
   });
 };
 
+function register(req, res) {
+  // stuff
+};
+
 var auth = {
     login: login,
     hashPassword: hashPassword
