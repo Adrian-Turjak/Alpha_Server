@@ -2,10 +2,12 @@ var crypto = require('crypto');
 
 var db = require('./models');
 
+
 function hashPassword (password) {
   var hash = crypto.createHash('md5').update(password).digest('hex');
   return hash;
 }
+
 
 function login(req, res) {
   if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('password')) {
@@ -36,9 +38,11 @@ function login(req, res) {
   });
 };
 
+
 function register(req, res) {
   // stuff
 };
+
 
 var auth = {
     login: login,

@@ -1,7 +1,7 @@
 var db = require('./models');
 var auth = require('./auth');
 
-function all_quotes(req,res) {
+function all_quotes(req, res) {
   if(!req.headers.hasOwnProperty('token')) {
     res.statusCode = 403;
     return res.send('Error 403: Not logged in.');
