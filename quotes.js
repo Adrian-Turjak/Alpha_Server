@@ -6,7 +6,7 @@ function all_quotes(req, res) {
     db.Quote.findAll().then(function(quotes){
       return res.send(quotes);  
     });
-  })
+  });
 };
 
 function random_quote(req, res) {
@@ -41,37 +41,23 @@ function random_quote(req, res) {
 };
 
 function quote_by_id(req, res) {
-  if(!req.headers.hasOwnProperty('token')) {
-    res.statusCode = 403;
-    return res.send('Error 403: Not logged in.');
-  }
+  auth.check_token(req, res, function(req, res){
+    db.Quote.findById(req.params.id).then(function(quote){
+      if(!quote) {
+        res.statusCode = 404;
+        return res.send('Error 404: No quote found');
+      }
 
-  db.Token.findOne({where: {token: req.headers.token}}).then(function(token) {
-
-    var now = new Date(Date.now());
-
-    if(token && token.expires > now){
-      db.Quote.findById(req.params.id).then(function(quote){
-        if(!quote) {
-          res.statusCode = 404;
-          return res.send('Error 404: No quote found');
-        }
-
-        db.User.findById(quote.UserId).then(function(user){
-          var q = {
-            "id": quote.id,
-            "author": quote.author,
-            "text": quote.text,
-            "submitted_by": user.username
-          };
-          return res.send(q);
-        });
+      db.User.findById(quote.UserId).then(function(user){
+        var q = {
+          "id": quote.id,
+          "author": quote.author,
+          "text": quote.text,
+          "submitted_by": user.username
+        };
+        return res.send(q);
       });
-    } else {
-      res.statusCode = 403;
-      return res.send('Error 403: Token has expired.');
-    }
-    
+    });
   });      
 };
 
