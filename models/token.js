@@ -1,0 +1,6 @@
+module.exports = function(sequelize, DataTypes) {
+  return sequelize.define("Token", {
+    token: {type: DataTypes.STRING, unique: true},
+    expires: DataTypes.DATE
+  })
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quotes and stuff</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+</head>
+<body>
+<!-- Start of first page -->
+<div data-role="page" id="foo">
+
+    <div data-role="header">
+        <h1>Quote Server!</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+
+        <div id="login"  class="functions">
+            <label for="text-2">Login:</label>
+            <label for="text-5">username:</label>
+            <input name="text-5" id="text5" value="foo" type="text">
+            <label for="text-6">password:</label>
+            <input name="text-7" id="text6" value="some text" type="password">
+            <input type="submit" value="Submit Button" id="button3" />
+        </div>
+
+        <div id="queries" style="display: none;">
+          <label for="text-1">Get a quote:</label>
+          <input name="text-1" id="text1" value="1" type="text">
+          <input type="submit" value="Submit Button" id="button1" />
+
+      	  <!-- put the result here -->
+      	  <div id="result"  class="functions"></div>
+
+          <label for="text-2">Add a new quote:</label>
+          <label for="text-3">Author:</label>
+          <input name="text-3" id="text3" value="foo" type="text">
+          <label for="text-4">Quote:</label>
+          <input name="text-4" id="text4" value="some text" type="text">
+          <input type="submit" value="Submit Button" id="button2" />
+        </div>
+
+
+    </div><!-- /content -->
+
+    <div data-role="footer">
+        <h4>Page Footer</h4>
+    </div><!-- /footer -->
+</div><!-- /page -->
+
+<script type="text/javascript">
+$(document).bind('pageinit', function() {
+
+  $.ajaxSetup ({
+    cache: false
+  });
+
+  var token = null;
+
+  $( "#button1" ).bind( "click", function(event, ui) {
+    if(!token){
+      alert("Please login.");
+    } else {
+      var q = $("#text1").val();
+      var jsonUrl = "https://peaceful-scrubland-3200.herokuapp.com/quote/"+q;
+      $.ajax({
+           url: "https://peaceful-scrubland-3200.herokuapp.com/quote/"+q,
+           headers: { "token": token },
+           type: "GET"
+        }).done(function(data){
+          $("#result").html("<p><b>"+data.author+" said "+data.text+"</b></p>");
+      });
+    };
+  });
+
+
+  $( "#button2" ).bind( "click", function(event, ui) {
+    if(!token){
+      alert("Please login.");
+    } else {
+      var author = $("#text3").val();
+      var quote = $("#text4").val();
+      var jsonUrl = "https://peaceful-scrubland-3200.herokuapp.com/quote";
+      var newQuote = { "author" : author, "text" : quote , "token": token};
+      $.ajax({
+           url: "https://peaceful-scrubland-3200.herokuapp.com/quote",
+           headers: { "token": token },
+           data: { "author" : author, "text" : quote},
+           type: "POST"
+        }).done(function(data){
+          alert("Added quote number " + data.id + " " + data.author + " " + data.text);
+      });
+    }
+  });
+
+  $( "#button3" ).bind( "click", function(event, ui) {
+    var username = $("#text5").val();
+    var password = $("#text6").val();
+    var jsonUrl = "https://peaceful-scrubland-3200.herokuapp.com/auth/login";
+    var user = { "username" : username, "password" : password};
+    $.post(jsonUrl, user, function(data) {
+      alert("logged in.");
+      token = data.token;
+      $("#login").html("<p><b>Logged in.</b></p>");
+      $("#queries").css("display","inline");
+    }, 'json');
+  });
+
+});
+</script>
+</body>
+</html>
