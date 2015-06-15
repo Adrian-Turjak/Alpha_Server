@@ -1,4 +1,6 @@
+var crypto = require('crypto');
 
+var db = require('./models');
 
 function hashPassword (password) {
   var hash = crypto.createHash('md5').update(password).digest('hex');

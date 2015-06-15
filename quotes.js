@@ -1,4 +1,5 @@
-
+var db = require('./models');
+var auth = require('./auth');
 
 function all_quotes(req,res) {
   if(!req.headers.hasOwnProperty('token')) {
