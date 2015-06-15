@@ -16,7 +16,7 @@ var db = require('./models');
 
 var crypto = require('crypto');
 
-var auth = require('auth');
+var auth = require('./auth');
 
 
 // make sure we can parse JSON passed in the body or encoded into url
