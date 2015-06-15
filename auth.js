@@ -5,7 +5,6 @@ function hashPassword (password) {
   return hash;
 }
 
-
 function login(req, res) {
   if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('password')) {
     res.statusCode = 400;
