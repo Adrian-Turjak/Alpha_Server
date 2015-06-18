@@ -5,11 +5,14 @@ var db = require('./models');
 
 
 function hashPassword (password) {
+  //implement bcrypt instead of crypto
   var hash = crypto.createHash('md5').update(password).digest('hex');
   return hash;
 };
 
-
+//make it so that each user can have at most one token. Cannot login to multiple devices. 
+//stops database from filling with tokens.
+//code left for sending tokens still here. 
 function login(req, res) {
   if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('password')) {
     res.statusCode = 400;
@@ -28,7 +31,8 @@ function login(req, res) {
         UserId: user.id
       }).then(function(token) {
         var t = {'token': token.token, 'message': "Logged in."};
-        //put cookie here
+        //put cookie here, current time is 15min 
+        //note cookies do not work with local webpages
         res.cookie('token', token.token, {maxAge: 900000});
 
         return res.send(t);
@@ -93,10 +97,14 @@ function register(req, res) {
 
 
 function securityQuestions(req, res){
+  //security questions to be displayed when username is entered
+
   return res.send('securityQuestions');
 };
 
 function resetPassword(req, res){
+  //once the user has successfully answered security questions, 
+  //they will then be able to reset their password with a token
   return res.send('resetPassword');
 };
 
