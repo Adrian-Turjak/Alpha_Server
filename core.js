@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var cookieParser = require('cookie-parser');
 
 
 // Our Modules:
@@ -10,6 +11,7 @@ var quotes = require('./quotes');
 
 
 var app = express();
+app.use(cookieParser());
 
 
 // make sure we can parse JSON passed in the body or encoded into url
@@ -25,11 +27,10 @@ app.use(cors());
 // Auth Endpoins
 app.post('/auth/login', auth.login);
 app.post('/auth/register', auth.register);
+app.post('/auth/logout', auth.logout);
+app.post('/auth/securityQuestions', auth.securityQuestions);
 app.post('/auth/reset', auth.resetPassword);
 
-// quiz endpoints
-app.get('/quiz', quiz.build_quiz);
-app.post('/quiz', quiz.add_question);
 
 
 // use PORT set as an environment variable
@@ -41,7 +42,7 @@ var server = app.listen(process.env.PORT, function() {
 // Setup the Database and load default quotes and user.
 // This drop all the tables, and create new ones.
 // Useful for development, but needs to be changed for production environments.
-db.sequelize.sync({ force: true }).then(function(){
+db.sequelize.sync({ force: false }).then(function(){
   db.User.create({
     username: 'admin',
     password: auth.hashPassword("password")
