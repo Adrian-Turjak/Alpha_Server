@@ -52,11 +52,11 @@ function login(req, res) {
 };
 
 function logout(req, res){
-  if(!req.cookies.token){
-    console.log('No token');
-    res.statusCode = 404;
-    return res.send('Error 404: Token not found');
-  }
+  //if(!req.cookies.token){
+  //  console.log('No token');
+  //  res.statusCode = 404;
+ //   return res.send('Error 404: Token not found');
+ // }
   console.log(req.cookies.token);
   
   //delete token from db
@@ -65,7 +65,7 @@ function logout(req, res){
       token: req.cookies.token
     }
   }).success(function(){
-    req.clearCookie('token');
+    res.clearCookie('token');
     res.statusCode = 200; //OK
     return res.send('Logout Success');
   })
