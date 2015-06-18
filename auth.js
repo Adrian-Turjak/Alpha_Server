@@ -56,6 +56,7 @@ function logout(req, res){
     res.clearCookie('token');
     res.statusCode = 200; //OK
     return res.send('Logout Success');
+    //cookie has been cleared and user should be required to login
   });
   
 };
@@ -63,8 +64,29 @@ function logout(req, res){
 
 
 function register(req, res) {
-  // stuff
-  return res.send('register');
+  // username, password, security questions
+  //do 2 security questions
+  //currently only implement for 2 security questions
+  if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('password') {
+    res.statusCode = 400;
+    return res.send('Error 400: Post syntax incorrect.');
+  }
+
+  db.User.findOne({where: {username: req.body.username}}).then(function(user) {
+    if(!user) {
+      //make sure that user doesn't exist, so we can create another user
+      db.User.create({
+        username: req.body.username
+        password: hashPassword(req.body.password)
+      })
+    }
+    else {
+      res.statusCode = 422;
+      res.send("Username already exists");
+    }
+  });
+};
+  return res.send('registration success');
 };
 
 function securityQuestions(req, res){
