@@ -25,6 +25,7 @@ app.use(cors());
 // Auth Endpoins
 app.post('/auth/login', auth.login);
 app.post('/auth/register', auth.register);
+app.post('/auth/reset', auth.reset);
 
 // quiz endpoints
 app.get('/quiz', quiz.build_quiz);
