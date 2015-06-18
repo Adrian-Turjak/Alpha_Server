@@ -52,14 +52,10 @@ function logout(req, res){
     where: {
       token: req.cookies.token
     }
-  }).success(function(){
+  }).then(function(){
     res.clearCookie('token');
     res.statusCode = 200; //OK
     return res.send('Logout Success');
-  })
-  .error(function(err){
-    res.statusCode = 500; //SERVER ERROR
-    return res.send('Something broke at the server');
   });
   
 };
