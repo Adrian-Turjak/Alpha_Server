@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 // Our Modules:
 var db = require('./models');
 var auth = require('./auth');
-var quotes = require('./quotes');
+var quiz = require('./quiz');
 
 
 var app = express();
@@ -31,6 +31,17 @@ app.post('/auth/logout', auth.logout);
 app.post('/auth/securityQuestions', auth.securityQuestions);
 app.post('/auth/reset', auth.resetPassword);
 
+// quiz endpoints
+app.get('/quiz/questions', quiz.build_quiz);
+app.post('/quiz/questions', quiz.add_question);
+app.post('/quiz/answer', quiz.answer_question);
+
+// user endpoints
+app.get('/user/trophies', user.get_trophies);
+app.post('/user/trophies', user.add_trophy);
+app.get('/user/score', user.get_score);
+app.post('/user/follow', user.follow_user);
+app.post('/user/unfollow', user.unfollow_user);
 
 
 // use PORT set as an environment variable
