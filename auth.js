@@ -67,7 +67,7 @@ function register(req, res) {
   // username, password, security questions
   //do 2 security questions
   //currently only implement for 2 security questions
-  if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('password') {
+  if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('password')) {
     res.statusCode = 400;
     return res.send('Error 400: Post syntax incorrect.');
   }
@@ -76,17 +76,21 @@ function register(req, res) {
     if(!user) {
       //make sure that user doesn't exist, so we can create another user
       db.User.create({
-        username: req.body.username
+        username: req.body.username,
         password: hashPassword(req.body.password)
-      })
+      }).then(function(){
+        return res.send('registration success');
+      });
     }
     else {
       res.statusCode = 422;
       return res.send("Username already exists");
     }
   });
-   return res.send('registration success');
+   
 };
+
+
 
 function securityQuestions(req, res){
   return res.send('securityQuestions');
