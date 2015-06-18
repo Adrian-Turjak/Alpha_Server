@@ -44,6 +44,8 @@
           <input type="submit" value="Submit Button" id="button2" />
         </div>
 
+        <input type="submit" value="logout" id="button4" />
+
 
     </div><!-- /content -->
 
@@ -107,6 +109,13 @@ $(document).bind('pageinit', function() {
       token = data.token;
       $("#login").html("<p><b>Logged in.</b></p>");
       $("#queries").css("display","inline");
+    }, 'json');
+  });
+
+  $( "#button4" ).bind( "click", function(event, ui) {
+    var jsonUrl = "https://powerful-cove-1691.herokuapp.com/auth/logout";
+    $.post(jsonUrl, user, function(data) {
+      alert("logged out.");
     }, 'json');
   });
 
