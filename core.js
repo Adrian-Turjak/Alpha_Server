@@ -26,13 +26,9 @@ app.use(cors());
 app.post('/auth/login', auth.login);
 app.post('/auth/register', auth.login);
 
-
-// Quotes endpoints
-app.get('/quote/all', quotes.all_quotes);
-app.get('/quote/random', quotes.random_quote);
-app.get('/quote/:id', quotes.quote_by_id);
-app.post('/quote', quotes.create_quote);
-app.delete('/quote/:id', quotes.delete_quote);
+// quiz endpoints
+app.get('/quiz', quiz.build_quiz);
+app.post('/quiz', quiz.add_question);
 
 
 // use PORT set as an environment variable

@@ -2,7 +2,7 @@ var db = require('./models');
 var auth = require('./auth');
 
 function all_quotes(req, res) {
-  auth.check_token(req, res, function(req, res){
+  return auth.check_token(req, res, function(req, res){
     db.Quote.findAll().then(function(quotes){
       return res.send(quotes);  
     });
@@ -27,7 +27,7 @@ function random_quote(req, res) {
 };
 
 function quote_by_id(req, res) {
-  auth.check_token(req, res, function(req, res){
+  return auth.check_token(req, res, function(req, res){
     db.Quote.findById(req.params.id).then(function(quote){
       if(!quote) {
         res.statusCode = 404;
@@ -48,7 +48,7 @@ function quote_by_id(req, res) {
 };
 
 function create_quote(req, res) {
-  auth.check_token(req, res, function(req, res){
+  return auth.check_token(req, res, function(req, res){
     db.User.findById(token.UserId).then(function(user){
       db.Quote.create({
         author : req.body.author,
@@ -70,7 +70,7 @@ function create_quote(req, res) {
 };
 
 function delete_quote(req, res) {
-  auth.check_token(req, res, function(req, res){
+  return auth.check_token(req, res, function(req, res){
     db.Quote.findById(req.params.id).then(function(quote){
       if(!quote) {
         res.statusCode = 404;
