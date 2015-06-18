@@ -114,7 +114,7 @@ $(document).bind('pageinit', function() {
 
   $( "#button4" ).bind( "click", function(event, ui) {
     var jsonUrl = "https://powerful-cove-1691.herokuapp.com/auth/logout";
-    $.post(jsonUrl, user, function(data) {
+    $.post(jsonUrl, function(data) {
       alert("logged out.");
     }, 'json');
   });
