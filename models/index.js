@@ -13,14 +13,14 @@ if (!global.hasOwnProperty('db')) {
   global.db = {
     Sequelize: Sequelize,
     sequelize: sequelize,
-    Quote:      sequelize.import(__dirname + '/quote'),
     User:      sequelize.import(__dirname + '/user'),
-    Token:      sequelize.import(__dirname + '/token')
+    Token:      sequelize.import(__dirname + '/token'),
+    Trophy:      sequelize.import(__dirname + '/trophy'),
+    Question:      sequelize.import(__dirname + '/question')
   }
 
 
-  global.db.Quote.belongsTo(global.db.User);
-  global.db.User.hasMany(global.db.Quote);
+  global.db.User.hasMany(global.db.User, {foreignKey: 'following'});
   
   global.db.Token.belongsTo(global.db.User);
   global.db.User.hasMany(global.db.Token);

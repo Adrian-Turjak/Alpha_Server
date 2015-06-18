@@ -4,6 +4,7 @@ var auth = require('./auth');
 
 function build_quiz(req, res) {
   return auth.check_token(req, res, function(req, res, user){
+    console.log(user);
     var quiz = {
       "questions": [
         {
