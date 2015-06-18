@@ -39,6 +39,7 @@ function login(req, res) {
         var t = {'token': token.token, 'message': "Logged in."};
         //put cookie here
         console.log('token sent');
+        console.log('cookie set');
         res.cookie('token', token.token, {maxAge: 900000});
 
         return res.send(t);
@@ -52,11 +53,11 @@ function login(req, res) {
 };
 
 function logout(req, res){
-  //if(!req.cookies.token){
-  //  console.log('No token');
-  //  res.statusCode = 404;
- //   return res.send('Error 404: Token not found');
- // }
+  if(!req.cookies.token){
+    console.log('No token');
+    res.statusCode = 404;
+    return res.send('Error 404: Token not found');
+    }
   console.log(req.cookies.token);
   
   //delete token from db

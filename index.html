@@ -66,9 +66,9 @@ $(document).bind('pageinit', function() {
       alert("Please login.");
     } else {
       var q = $("#text1").val();
-      var jsonUrl = "https://peaceful-scrubland-3200.herokuapp.com/quote/"+q;
+      var jsonUrl = "https://powerful-cove-1691.herokuapp.com/quote/"+q;
       $.ajax({
-           url: "https://peaceful-scrubland-3200.herokuapp.com/quote/"+q,
+           url: "https://powerful-cove-1691.herokuapp.com/quote/"+q,
            headers: { "token": token },
            type: "GET"
         }).done(function(data){
@@ -84,10 +84,10 @@ $(document).bind('pageinit', function() {
     } else {
       var author = $("#text3").val();
       var quote = $("#text4").val();
-      var jsonUrl = "https://peaceful-scrubland-3200.herokuapp.com/quote";
+      var jsonUrl = "https://powerful-cove-1691.herokuapp.com/quote";
       var newQuote = { "author" : author, "text" : quote , "token": token};
       $.ajax({
-           url: "https://peaceful-scrubland-3200.herokuapp.com/quote",
+           url: "https://powerful-cove-1691.herokuapp.com/quote",
            headers: { "token": token },
            data: { "author" : author, "text" : quote},
            type: "POST"
@@ -100,7 +100,7 @@ $(document).bind('pageinit', function() {
   $( "#button3" ).bind( "click", function(event, ui) {
     var username = $("#text5").val();
     var password = $("#text6").val();
-    var jsonUrl = "https://peaceful-scrubland-3200.herokuapp.com/auth/login";
+    var jsonUrl = "https://powerful-cove-1691.herokuapp.com/auth/login";
     var user = { "username" : username, "password" : password};
     $.post(jsonUrl, user, function(data) {
       alert("logged in.");
