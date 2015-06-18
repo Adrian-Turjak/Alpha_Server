@@ -1,8 +1,9 @@
 if (!global.hasOwnProperty('db')) {
   var Sequelize = require('sequelize')
     , sequelize = null
+    , database_url = process.env.DATABASE_URL || "postgres://pyblqjjvqlrzvc:MvyQSuj04MN6a5wuysnInoPy08@ec2-54-83-17-8.compute-1.amazonaws.com:5432/d9khtmbs5dcl24";
 
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
+  sequelize = new Sequelize(database_url, {
     dialect:  'postgres',
     protocol: 'postgres',
     port:     5432
