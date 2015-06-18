@@ -24,7 +24,7 @@ app.use(cors());
 
 // Auth Endpoins
 app.post('/auth/login', auth.login);
-app.post('/auth/register', auth.login);
+app.post('/auth/register', auth.register);
 
 
 // Quotes endpoints
