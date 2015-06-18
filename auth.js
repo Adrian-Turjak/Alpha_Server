@@ -82,11 +82,10 @@ function register(req, res) {
     }
     else {
       res.statusCode = 422;
-      res.send("Username already exists");
+      return res.send("Username already exists");
     }
   });
-};
-  return res.send('registration success');
+   return res.send('registration success');
 };
 
 function securityQuestions(req, res){
