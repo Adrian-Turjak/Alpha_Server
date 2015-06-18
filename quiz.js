@@ -9,7 +9,7 @@ function build_quiz(req, res) {
         {
           'question_id': 1,
           'question': "What are one of the main weapons the people of Vanuatu traditionally hunt with?",
-          'choices'['gun', 'bow and arrow', 'knives', 'sword'],
+          'choices':['gun', 'bow and arrow', 'knives', 'sword'],
           'answer': 'bow and arrow',
         }
       ]

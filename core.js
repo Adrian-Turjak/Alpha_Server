@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var db = require('./models');
 var auth = require('./auth');
 var quiz = require('./quiz');
+var user = require('./user');
 
 
 var app = express();
@@ -53,6 +54,7 @@ var server = app.listen(process.env.PORT, function() {
 // Setup the Database and load default quotes and user.
 // This drop all the tables, and create new ones.
 // Useful for development, but needs to be changed for production environments.
+
 db.sequelize.sync({ force: false }).then(function(){
   db.User.create({
     username: 'admin',
@@ -80,5 +82,6 @@ db.sequelize.sync({ force: false }).then(function(){
   
 
 });
+
 
 
