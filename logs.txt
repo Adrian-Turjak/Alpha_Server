@@ -129,3 +129,36 @@
 2015-06-19T03:40:14.650844+00:00 app[web.1]:     at node.js:935:3
 2015-06-19T03:40:15.660243+00:00 heroku[web.1]: State changed from starting to crashed
 2015-06-19T03:40:15.644198+00:00 heroku[web.1]: Process exited with status 8
+2015-06-19T03:41:45.501033+00:00 heroku[api]: Deploy 9da4b5a by dannycole12@gmail.com
+2015-06-19T03:41:45.501033+00:00 heroku[api]: Release v34 created by dannycole12@gmail.com
+2015-06-19T03:41:45.557092+00:00 heroku[slug-compiler]: Slug compilation started
+2015-06-19T03:41:45.557101+00:00 heroku[slug-compiler]: Slug compilation finished
+2015-06-19T03:41:45.595414+00:00 heroku[web.1]: State changed from crashed to starting
+2015-06-19T03:41:48.722664+00:00 heroku[web.1]: Starting process with command `node core.js`
+2015-06-19T03:41:50.340892+00:00 app[web.1]: Detected 512 MB available memory, 512 MB limit per process (WEB_MEMORY)
+2015-06-19T03:41:50.340923+00:00 app[web.1]: Recommending WEB_CONCURRENCY=1
+2015-06-19T03:41:51.036879+00:00 app[web.1]: 
+2015-06-19T03:41:51.036963+00:00 app[web.1]: /app/node_modules/sequelize/node_modules/toposort-class/toposort.js:74
+2015-06-19T03:41:51.037282+00:00 app[web.1]:                     throw new Error(
+2015-06-19T03:41:51.037346+00:00 app[web.1]:                           ^
+2015-06-19T03:41:51.038516+00:00 app[web.1]: Error: Cyclic dependency found. 'Users' is dependent of itself.
+2015-06-19T03:41:51.038518+00:00 app[web.1]: Dependency Chain: Users -> Tokens => Users
+2015-06-19T03:41:51.020897+00:00 app[web.1]: Fri, 19 Jun 2015 03:41:51 GMT body-parser deprecated undefined extended: provide extended option at core.js:19:20
+2015-06-19T03:41:51.038520+00:00 app[web.1]:     at visit (/app/node_modules/sequelize/node_modules/toposort-class/toposort.js:74:27)
+2015-06-19T03:41:51.038521+00:00 app[web.1]:     at /app/node_modules/sequelize/node_modules/toposort-class/toposort.js:96:25
+2015-06-19T03:41:51.038523+00:00 app[web.1]:     at Array.forEach (native)
+2015-06-19T03:41:51.038526+00:00 app[web.1]:     at visit (/app/node_modules/sequelize/node_modules/toposort-class/toposort.js:95:20)
+2015-06-19T03:41:51.038527+00:00 app[web.1]:     at /app/node_modules/sequelize/node_modules/toposort-class/toposort.js:96:25
+2015-06-19T03:41:51.038528+00:00 app[web.1]:     at Array.forEach (native)
+2015-06-19T03:41:51.038530+00:00 app[web.1]:     at visit (/app/node_modules/sequelize/node_modules/toposort-class/toposort.js:95:20)
+2015-06-19T03:41:51.038532+00:00 app[web.1]:     at Toposort.self.sort (/app/node_modules/sequelize/node_modules/toposort-class/toposort.js:104:21)
+2015-06-19T03:41:51.038534+00:00 app[web.1]:     at module.exports.ModelManager.forEachModel (/app/node_modules/sequelize/lib/model-manager.js:93:21)
+2015-06-19T03:41:51.038535+00:00 app[web.1]:     at module.exports.Sequelize.drop (/app/node_modules/sequelize/lib/sequelize.js:893:23)
+2015-06-19T03:41:51.038537+00:00 app[web.1]:     at module.exports.Sequelize.sync (/app/node_modules/sequelize/lib/sequelize.js:857:19)
+2015-06-19T03:41:51.038538+00:00 app[web.1]:     at Object.<anonymous> (/app/core.js:58:14)
+2015-06-19T03:41:51.038540+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:41:51.038541+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:41:51.038542+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:41:51.038544+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:41:51.859885+00:00 heroku[web.1]: Process exited with status 8
+2015-06-19T03:41:51.874508+00:00 heroku[web.1]: State changed from starting to crashed

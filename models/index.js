@@ -24,7 +24,7 @@ if (!global.hasOwnProperty('db')) {
   global.db.User.hasMany(global.db.User, {foreignKey: 'following'});
   
   global.db.Token.belongsTo(global.db.User);
-  global.db.User.belongsTo(global.db.Token);
+  global.db.User.hasMany(global.db.Token);
   
 }
 
