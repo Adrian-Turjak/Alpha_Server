@@ -108,7 +108,6 @@ function register(req, res) {
 
 
 /* Takes a username and returns the security questions associated with it */
-
 function securityQuestions(req, res){
   //security questions to be displayed when username is entered
   if(!req.body.hasOwnProperty('username')) {
