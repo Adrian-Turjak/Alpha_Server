@@ -127,7 +127,7 @@ function securityQuestions(req, res){
 
 function securityQuestionAnswer(req, res){
   //need username again to check answers
-  if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('answer_one') || req.body.hasOwnProperty('answer_two')) {
+  if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('answer_one') || !req.body.hasOwnProperty('answer_two')) {
     res.statusCode = 400;
     return res.send('Error 400: Post syntax incorrect.');
   }
