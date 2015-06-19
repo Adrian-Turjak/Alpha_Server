@@ -1,12 +1,14 @@
 var crypto = require('crypto');
+var bcrypt = require('bcrypt');
 
 var db = require('./models');
 
 
 
 function hashPassword (password) {
-  //implement bcrypt instead of crypto
-  var hash = crypto.createHash('md5').update(password).digest('hex');
+  //default salt is 10
+  var hash = bcrypt.hashSync(password);
+  //var hash = crypto.createHash('md5').update(password).digest('hex');
   return hash;
 };
 
@@ -24,7 +26,7 @@ function login(req, res) {
       return res.send('Error 404: User does not exist.');
     }
     var hash = hashPassword(req.body.password);
-    if(hash===user.password){
+    if(bcrypt.compareSync(user.password, hash)){
       db.Token.create({
         token: crypto.randomBytes(32).toString('hex'),
         expires: new Date(Date.now() + 10*60000),
@@ -38,7 +40,6 @@ function login(req, res) {
         return res.send(t);
       });      
     } else {
-      console.log('error1');
       res.statusCode = 403;
       return res.send('Error 403: incorrect password.');
     }
