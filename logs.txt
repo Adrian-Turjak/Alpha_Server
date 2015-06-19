@@ -1,0 +1,101 @@
+2015-06-19T03:34:05.671180+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:34:05.671181+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:34:05.671183+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:34:05.671185+00:00 app[web.1]:     at Module.require (module.js:364:17)
+2015-06-19T03:34:05.671187+00:00 app[web.1]:     at require (module.js:380:17)
+2015-06-19T03:34:05.671188+00:00 app[web.1]:     at Object.<anonymous> (/app/core.js:9:12)
+2015-06-19T03:34:05.671190+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:34:05.671192+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:34:05.671193+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:34:05.671195+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:34:05.671196+00:00 app[web.1]:     at Function.Module.runMain (module.js:497:10)
+2015-06-19T03:34:05.671198+00:00 app[web.1]:     at startup (node.js:119:16)
+2015-06-19T03:34:05.671199+00:00 app[web.1]:     at node.js:935:3
+2015-06-19T03:34:06.499823+00:00 heroku[web.1]: Process exited with status 8
+2015-06-19T03:34:06.512785+00:00 heroku[web.1]: State changed from starting to crashed
+2015-06-19T03:34:06.512785+00:00 heroku[web.1]: State changed from crashed to starting
+2015-06-19T03:34:11.779139+00:00 heroku[web.1]: Starting process with command `node core.js`
+2015-06-19T03:34:13.827395+00:00 app[web.1]: Detected 512 MB available memory, 512 MB limit per process (WEB_MEMORY)
+2015-06-19T03:34:13.827419+00:00 app[web.1]: Recommending WEB_CONCURRENCY=1
+2015-06-19T03:34:14.845392+00:00 app[web.1]: 
+2015-06-19T03:34:14.845483+00:00 app[web.1]: /app/auth.js:167
+2015-06-19T03:34:14.845729+00:00 app[web.1]:     securityQuestions: securityQuestions,
+2015-06-19T03:34:14.845798+00:00 app[web.1]:                        ^
+2015-06-19T03:34:14.848215+00:00 app[web.1]: ReferenceError: securityQuestions is not defined
+2015-06-19T03:34:14.848218+00:00 app[web.1]:     at Object.<anonymous> (/app/auth.js:167:24)
+2015-06-19T03:34:14.848221+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:34:14.848223+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:34:14.848219+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:34:14.848224+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:34:14.848225+00:00 app[web.1]:     at Module.require (module.js:364:17)
+2015-06-19T03:34:14.848227+00:00 app[web.1]:     at require (module.js:380:17)
+2015-06-19T03:34:14.848228+00:00 app[web.1]:     at Object.<anonymous> (/app/core.js:9:12)
+2015-06-19T03:34:14.848230+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:34:14.848231+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:34:14.848232+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:34:14.848233+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:34:14.848235+00:00 app[web.1]:     at Function.Module.runMain (module.js:497:10)
+2015-06-19T03:34:14.848236+00:00 app[web.1]:     at startup (node.js:119:16)
+2015-06-19T03:34:14.848237+00:00 app[web.1]:     at node.js:935:3
+2015-06-19T03:34:15.664390+00:00 heroku[web.1]: State changed from starting to crashed
+2015-06-19T03:34:15.648579+00:00 heroku[web.1]: Process exited with status 8
+2015-06-19T03:35:02.003354+00:00 heroku[slug-compiler]: Slug compilation started
+2015-06-19T03:35:02.003362+00:00 heroku[slug-compiler]: Slug compilation finished
+2015-06-19T03:35:01.944312+00:00 heroku[api]: Deploy 85e5391 by dannycole12@gmail.com
+2015-06-19T03:35:01.944312+00:00 heroku[api]: Release v31 created by dannycole12@gmail.com
+2015-06-19T03:35:03.686392+00:00 heroku[web.1]: Starting process with command `node core.js`
+2015-06-19T03:35:02.300012+00:00 heroku[web.1]: State changed from crashed to starting
+2015-06-19T03:35:05.779162+00:00 app[web.1]: Detected 512 MB available memory, 512 MB limit per process (WEB_MEMORY)
+2015-06-19T03:35:05.779186+00:00 app[web.1]: Recommending WEB_CONCURRENCY=1
+2015-06-19T03:35:06.453722+00:00 app[web.1]: 
+2015-06-19T03:35:06.453796+00:00 app[web.1]: /app/auth.js:167
+2015-06-19T03:35:06.454075+00:00 app[web.1]:     securityQuestions: securityQuestions,
+2015-06-19T03:35:06.454081+00:00 app[web.1]:                        ^
+2015-06-19T03:35:06.456240+00:00 app[web.1]: ReferenceError: securityQuestions is not defined
+2015-06-19T03:35:06.456243+00:00 app[web.1]:     at Object.<anonymous> (/app/auth.js:167:24)
+2015-06-19T03:35:06.456245+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:35:06.456246+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:35:06.456249+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:35:06.456251+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:35:06.456253+00:00 app[web.1]:     at Module.require (module.js:364:17)
+2015-06-19T03:35:06.456257+00:00 app[web.1]:     at Object.<anonymous> (/app/core.js:9:12)
+2015-06-19T03:35:06.456255+00:00 app[web.1]:     at require (module.js:380:17)
+2015-06-19T03:35:06.456260+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:35:06.456262+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:35:06.456264+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:35:06.456266+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:35:06.456267+00:00 app[web.1]:     at Function.Module.runMain (module.js:497:10)
+2015-06-19T03:35:06.456269+00:00 app[web.1]:     at startup (node.js:119:16)
+2015-06-19T03:35:06.456271+00:00 app[web.1]:     at node.js:935:3
+2015-06-19T03:35:07.286484+00:00 heroku[web.1]: Process exited with status 8
+2015-06-19T03:35:07.299840+00:00 heroku[web.1]: State changed from starting to crashed
+2015-06-19T03:37:25.361545+00:00 heroku[slug-compiler]: Slug compilation started
+2015-06-19T03:37:25.361566+00:00 heroku[slug-compiler]: Slug compilation finished
+2015-06-19T03:37:25.313280+00:00 heroku[api]: Deploy bffd52e by dannycole12@gmail.com
+2015-06-19T03:37:25.313280+00:00 heroku[api]: Release v32 created by dannycole12@gmail.com
+2015-06-19T03:37:25.557060+00:00 heroku[web.1]: State changed from crashed to starting
+2015-06-19T03:37:27.701267+00:00 heroku[web.1]: Starting process with command `node core.js`
+2015-06-19T03:37:29.612999+00:00 app[web.1]: Detected 512 MB available memory, 512 MB limit per process (WEB_MEMORY)
+2015-06-19T03:37:29.613036+00:00 app[web.1]: Recommending WEB_CONCURRENCY=1
+2015-06-19T03:37:30.515204+00:00 app[web.1]: 
+2015-06-19T03:37:30.515404+00:00 app[web.1]: /app/auth.js:170
+2015-06-19T03:37:30.515658+00:00 app[web.1]:     securityQuestions: securityQuestions,
+2015-06-19T03:37:30.515694+00:00 app[web.1]:                        ^
+2015-06-19T03:37:30.517409+00:00 app[web.1]: ReferenceError: securityQuestions is not defined
+2015-06-19T03:37:30.517411+00:00 app[web.1]:     at Object.<anonymous> (/app/auth.js:170:24)
+2015-06-19T03:37:30.517413+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:37:30.517414+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:37:30.517416+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:37:30.517417+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:37:30.517419+00:00 app[web.1]:     at Module.require (module.js:364:17)
+2015-06-19T03:37:30.517420+00:00 app[web.1]:     at require (module.js:380:17)
+2015-06-19T03:37:30.517422+00:00 app[web.1]:     at Object.<anonymous> (/app/core.js:9:12)
+2015-06-19T03:37:30.517424+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:37:30.517425+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:37:30.517427+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:37:30.517429+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:37:30.517431+00:00 app[web.1]:     at Function.Module.runMain (module.js:497:10)
+2015-06-19T03:37:30.517432+00:00 app[web.1]:     at startup (node.js:119:16)
+2015-06-19T03:37:30.517434+00:00 app[web.1]:     at node.js:935:3
+2015-06-19T03:37:31.414181+00:00 heroku[web.1]: State changed from starting to crashed
+2015-06-19T03:37:31.400099+00:00 heroku[web.1]: Process exited with status 8
