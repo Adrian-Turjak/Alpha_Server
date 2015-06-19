@@ -143,7 +143,7 @@ function securityQuestionAnswer(req, res){
     console.log(answerTwo);
     console.log(req.body.answer_one);
     console.log(req.body.answer_two);
-    if(bcrypt.compareSync(req.body.answer_one, answerTwo) && bcrypt.compareSync(req.body.answer_one, answerTwo)){
+    if(bcrypt.compareSync(req.body.answer_one, answerOne) && bcrypt.compareSync(req.body.answer_one, answerTwo)){
       db.Token.create({
         token: crypto.randomBytes(32).toString('hex'),
         expires: new Date(Date.now() + 10*60000),
