@@ -168,9 +168,23 @@ function securityQuestionAnswer(req, res){
 
 
 function resetPassword(req, res){
-  //once the user has successfully answered security questions, 
+  if(!req.body.hasOwnProperty('password')) {
+    res.statusCode = 400;
+    return res.send('Error 400: Post syntax incorrect.');
+  }
+  //once the user has successfully answered security questions,
   //they will then be able to reset their password with a token
-  return res.send('resetPassword');
+  return auth.check_token(req, res, function(req, res, user){
+    //need to make sure user is authenticated already
+    db.User.update(
+        { password: hashPassword(req.body.password) } /* set attributes' value */,
+        { where: { username : user.username }} /* where criteria */
+    ).then(function() {
+          //after updated password now we should
+          //clear token and require a new sign in
+          })
+
+  });
 };
 
 
