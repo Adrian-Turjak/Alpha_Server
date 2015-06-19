@@ -108,6 +108,7 @@ function register(req, res) {
 
 
 /* Takes a username and returns the security questions associated with it */
+/*
 function securityQuestionsReq(req, res){
   //security questions to be displayed when username is entered
   if(!req.body.hasOwnProperty('username')) {
@@ -125,9 +126,11 @@ function securityQuestionsReq(req, res){
   });
 }
 
+
 function securityQuestionsCheck(){
 
 }
+*/
 
 function resetPassword(req, res){
   //once the user has successfully answered security questions, 
