@@ -120,7 +120,6 @@ function check_token(req, res, callback){
 
   db.Token.findOne({where: {token: req.cookies.token}}).then(function(token) {
     var now = new Date(Date.now());
-
     if(token && token.expires > now){
       db.User.findOne({where: {id: token.UserId}}).then(function(user){
         return callback(req, res, user);
