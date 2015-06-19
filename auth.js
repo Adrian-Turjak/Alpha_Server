@@ -27,6 +27,8 @@ function login(req, res) {
     }
     var hash = hashPassword(req.body.password);
     console.log(user.password);
+    console.log(req.body.password);
+    console.log(hash);
     console.log(bcrypt.compareSync(user.password, hash));
     if(bcrypt.compareSync(user.password, hash)){
       db.Token.create({
