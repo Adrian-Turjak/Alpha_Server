@@ -30,7 +30,7 @@ function login(req, res) {
     console.log(req.body.password);
     console.log(hash);
     console.log(bcrypt.compareSync(user.password, hash));
-    if(bcrypt.compareSync(user.password, hash)){
+    if(bcrypt.compareSync(req.body.password, user.password)){
       db.Token.create({
         token: crypto.randomBytes(32).toString('hex'),
         expires: new Date(Date.now() + 10*60000),
