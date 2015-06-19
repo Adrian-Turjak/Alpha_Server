@@ -144,17 +144,19 @@ function securityQuestionAnswer(req, res){
     console.log(req.body.answer_one);
     console.log(req.body.answer_two);
     if(bcrypt.compareSync(req.body.answer_one, answerOne) && bcrypt.compareSync(req.body.answer_two, answerTwo)){
-      db.Token.create({
-        token: crypto.randomBytes(32).toString('hex'),
-        expires: new Date(Date.now() + 10*60000),
-        UserId: user.id
-      }).then(function(token) {
-        var t = {'token': token.token, 'message': "Logged in."};
-        //note: cookies do not work with local webpages
-        res.cookie('token', token.token, {maxAge: 10*60000});
-        return res.send("correct! redirecting to login. Here's your token: " + t);
+      //correct security answers, so let's give the user a token to change their password
+      db.User.findOne({where: {username: req.body.username}}).then(function(user) {
+          db.Token.create({
+            token: crypto.randomBytes(32).toString('hex'),
+            expires: new Date(Date.now() + 10*60000),
+            UserId: user.id
+          }).then(function(token) {
+            var t = {'token': token.token, 'message': "Logged in."};
+            //note: cookies do not work with local webpages
+            res.cookie('token', token.token, {maxAge: 10*60000});
+            return res.send(t);
+          });
       });
-
     }
     else {
       return res.send("incorrect answers");

@@ -349,3 +349,57 @@ d = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND a.attnum = 
 2015-06-19T04:16:22.886047+00:00 app[web.1]: 'james'
 2015-06-19T04:16:22.886099+00:00 app[web.1]: 'cole'
 2015-06-19T04:16:23.162103+00:00 heroku[router]: at=info method=POST path="/auth/securityQuestionAnswer" host=powerful-cove-1691.herokuapp.com request_id=40b2c22d-4bb3-4a7b-a8cc-f77b82b28f4b fwd="125.239.160.28" dyno=web.1 connect=2ms service=322ms status=200 bytes=230
+2015-06-19T04:17:52.770177+00:00 heroku[api]: Deploy 6a41ab6 by dannycole12@gmail.com
+2015-06-19T04:17:52.770238+00:00 heroku[api]: Release v44 created by dannycole12@gmail.com
+2015-06-19T04:17:52.817381+00:00 heroku[slug-compiler]: Slug compilation started
+2015-06-19T04:17:52.817401+00:00 heroku[slug-compiler]: Slug compilation finished
+2015-06-19T04:17:52.927374+00:00 heroku[web.1]: State changed from up to starting
+2015-06-19T04:17:55.646002+00:00 heroku[web.1]: Starting process with command `node core.js`
+2015-06-19T04:17:55.787626+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2015-06-19T04:17:57.476164+00:00 heroku[web.1]: Process exited with status 143
+2015-06-19T04:17:57.438510+00:00 app[web.1]: Detected 512 MB available memory, 512 MB limit per process (WEB_MEMORY)
+2015-06-19T04:17:57.438531+00:00 app[web.1]: Recommending WEB_CONCURRENCY=1
+2015-06-19T04:17:58.051662+00:00 app[web.1]: Fri, 19 Jun 2015 04:17:58 GMT body-parser deprecated undefined extended: provide extended option at core.js:19:20
+2015-06-19T04:17:58.108461+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "SecurityQuestions" CASCADE;
+2015-06-19T04:17:58.133775+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Trophies" CASCADE;
+2015-06-19T04:17:58.149172+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Users" CASCADE;
+2015-06-19T04:17:58.164844+00:00 app[web.1]: Executing (default): CREATE TABLE IF NOT EXISTS "Users" ("id"   SERIAL , "username" VARCHAR(255) UNIQUE, "password" VARCHAR(255), "score" INTEGER DEFAULT 0, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL, "following" INTEGER REFERENCES "Users" ("id") ON DELETE SET NULL ON UPDATE CASCADE, PRIMARY KEY ("id"));
+2015-06-19T04:17:58.213776+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Tokens" CASCADE;
+2015-06-19T04:17:58.255406+00:00 app[web.1]: Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND a.attnum = ANY(ix.indkey) AND t.relkind = 'r' and t.relname = 'Tokens' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
+2015-06-19T04:17:58.261393+00:00 app[web.1]: Executing (default): CREATE TABLE IF NOT EXISTS "Trophies" ("id"   SERIAL , "country" VARCHAR(255), "name" VARCHAR(255), "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL, PRIMARY KEY ("id"));
+2015-06-19T04:17:58.288932+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Quotes" CASCADE;
+2015-06-19T04:17:58.067864+00:00 app[web.1]: Listening on port 24019
+2015-06-19T04:17:58.124989+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Quotes" CASCADE;
+2015-06-19T04:17:58.142802+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Tokens" CASCADE;
+2015-06-19T04:17:58.158223+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Users" CASCADE;
+2015-06-19T04:17:58.204712+00:00 app[web.1]: Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND a.attnum = ANY(ix.indkey) AND t.relkind = 'r' and t.relname = 'Users' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
+2015-06-19T04:17:58.217147+00:00 app[web.1]: Executing (default): CREATE TABLE IF NOT EXISTS "Tokens" ("id"   SERIAL , "token" VARCHAR(255) UNIQUE, "expires" TIMESTAMP WITH TIME ZONE, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL, "UserId" INTEGER REFERENCES "Users" ("id") ON DELETE SET NULL ON UPDATE CASCADE, PRIMARY KEY ("id"));
+2015-06-19T04:17:58.258471+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Trophies" CASCADE;
+2015-06-19T04:17:58.285507+00:00 app[web.1]: Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND a.attnum = ANY(ix.indkey) AND t.relkind = 'r' and t.relname = 'Trophies' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
+2015-06-19T04:17:58.313908+00:00 app[web.1]: Executing (default): CREATE TABLE IF NOT EXISTS "Quotes" ("id"   SERIAL , "question" VARCHAR(255), "trophy" VARCHAR(255), "choice1" VARCHAR(255), "choice2" VARCHAR(255), "choice3" VARCHAR(255), "choice4" VARCHAR(255), "answer" VARCHAR(255), "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL, PRIMARY KEY ("id"));
+2015-06-19T04:17:58.344526+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "SecurityQuestions" CASCADE;
+2015-06-19T04:17:58.397558+00:00 app[web.1]: Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND a.attnum = ANY(ix.indkey) AND t.relkind = 'r' and t.relname = 'SecurityQuestions' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
+2015-06-19T04:17:58.338598+00:00 app[web.1]: Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND a.attnum = ANY(ix.indkey) AND t.relkind = 'r' and t.relname = 'Quotes' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
+2015-06-19T04:17:58.372663+00:00 app[web.1]: Executing (default): CREATE TABLE IF NOT EXISTS "SecurityQuestions" ("id"   SERIAL , "username" VARCHAR(255), "questionOne" VARCHAR(255), "questionTwo" VARCHAR(255), "answerOne" VARCHAR(255), "answerTwo" VARCHAR(255), "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL, PRIMARY KEY ("id"));
+2015-06-19T04:17:58.639549+00:00 app[web.1]: Executing (default): INSERT INTO "Users" ("id","username","password","score","updatedAt","createdAt") VALUES (DEFAULT,'admin','$2a$10$l4kL/jCIvJWLAmlcbvr72.on5YZ8kL/A4hyJRzjlHCzx.QSMQ8dKC',0,'2015-06-19 04:17:58.634 +00:00','2015-06-19 04:17:58.634 +00:00') RETURNING *;
+2015-06-19T04:17:58.759016+00:00 app[web.1]: Executing (default): INSERT INTO "Users" ("id","username","password","score","updatedAt","createdAt") VALUES (DEFAULT,'demo','$2a$10$bSg/Fy0LlvbcquUzmCrlZeOvBbH0wg5DqZ25I4tD9meNFr7skTvIa',0,'2015-06-19 04:17:58.757 +00:00','2015-06-19 04:17:58.757 +00:00') RETURNING *;
+2015-06-19T04:17:59.364619+00:00 heroku[web.1]: State changed from starting to up
+2015-06-19T04:18:00.986449+00:00 app[web.1]: Executing (default): SELECT "id", "username", "password", "score", "createdAt", "updatedAt", "following" FROM "Users" AS "User" WHERE "User"."username" = 'dan' LIMIT 1;
+2015-06-19T04:18:01.096053+00:00 app[web.1]: Executing (default): INSERT INTO "Users" ("id","username","password","score","updatedAt","createdAt") VALUES (DEFAULT,'dan','$2a$10$PTEYKGgYXT3t.xqT1ZGIReVI4x4Vh4.ffoFV36g82djKslnsAx5Fy',0,'2015-06-19 04:18:01.095 +00:00','2015-06-19 04:18:01.095 +00:00') RETURNING *;
+2015-06-19T04:18:01.324287+00:00 app[web.1]: Executing (default): INSERT INTO "SecurityQuestions" ("id","username","questionOne","questionTwo","answerOne","answerTwo","updatedAt","createdAt") VALUES (DEFAULT,'dan','What''s my middle name?','What''s my last name?','$2a$10$Sf.E/AzuxDJWRIwSRoTV/eJ9XKeeUu4jxmuW7/P4cKp8RKpnbH6t6','$2a$10$qOuIOZQZEWv/gieoLIJ.ZeFX5KJ886QYrngQ0yqfHvhzw9buchtW2','2015-06-19 04:18:01.322 +00:00','2015-06-19 04:18:01.322 +00:00') RETURNING *;
+2015-06-19T04:18:01.341160+00:00 heroku[router]: at=info method=POST path="/auth/register" host=powerful-cove-1691.herokuapp.com request_id=25f66fb9-4bc5-4449-b72e-33f90c3522d6 fwd="125.239.160.28" dyno=web.1 connect=10ms service=406ms status=200 bytes=233
+2015-06-19T04:18:14.868885+00:00 app[web.1]: Executing (default): SELECT "id", "username", "questionOne", "questionTwo", "answerOne", "answerTwo", "createdAt", "updatedAt" FROM "SecurityQuestions" AS "SecurityQuestions" WHERE "SecurityQuestions"."username" = 'dan' LIMIT 1;
+2015-06-19T04:18:14.871870+00:00 app[web.1]: $2a$10$Sf.E/AzuxDJWRIwSRoTV/eJ9XKeeUu4jxmuW7/P4cKp8RKpnbH6t6
+2015-06-19T04:18:14.871920+00:00 app[web.1]: $2a$10$qOuIOZQZEWv/gieoLIJ.ZeFX5KJ886QYrngQ0yqfHvhzw9buchtW2
+2015-06-19T04:18:14.871940+00:00 app[web.1]: james
+2015-06-19T04:18:14.871963+00:00 app[web.1]: cole
+2015-06-19T04:18:15.094097+00:00 app[web.1]: Unhandled rejection ReferenceError: user is not defined
+2015-06-19T04:18:15.094101+00:00 app[web.1]:     at null.<anonymous> (/app/auth.js:150:17)
+2015-06-19T04:18:15.094103+00:00 app[web.1]:     at tryCatcher (/app/node_modules/sequelize/node_modules/bluebird/js/main/util.js:24:31)
+2015-06-19T04:18:15.094104+00:00 app[web.1]:     at Promise._settlePromiseFromHandler (/app/node_modules/sequelize/node_modules/bluebird/js/main/promise.js:454:31)
+2015-06-19T04:18:15.095667+00:00 app[web.1]:     at Promise._settlePromiseAt (/app/node_modules/sequelize/node_modules/bluebird/js/main/promise.js:530:18)
+2015-06-19T04:18:15.095672+00:00 app[web.1]:     at Async._drainQueue (/app/node_modules/sequelize/node_modules/bluebird/js/main/async.js:187:12)
+2015-06-19T04:18:15.095673+00:00 app[web.1]:     at Async._drainQueues (/app/node_modules/sequelize/node_modules/bluebird/js/main/async.js:192:10)
+2015-06-19T04:18:15.095674+00:00 app[web.1]:     at Async.drainQueues (/app/node_modules/sequelize/node_modules/bluebird/js/main/async.js:15:14)
+2015-06-19T04:18:15.095679+00:00 app[web.1]:     at process._tickCallback (node.js:448:13)
+2015-06-19T04:18:44.840049+00:00 heroku[router]: at=error code=H12 desc="Request timeout" method=POST path="/auth/securityQuestionAnswer" host=powerful-cove-1691.herokuapp.com request_id=84ccd02a-fa7f-478f-888a-492ec9304b2d fwd="125.239.160.28" dyno=web.1 connect=1ms service=30000ms status=503 bytes=0
