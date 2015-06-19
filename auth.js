@@ -29,7 +29,7 @@ function login(req, res) {
       return res.send('Error 404: User does not exist.');
     }
     var hash = hashPassword(req.body.password);
-    if(user.password === hash){
+    if(bcrypt.compareSync(user.password, hash)){
       db.Token.create({
         token: crypto.randomBytes(32).toString('hex'),
         expires: new Date(Date.now() + 10*60000),
