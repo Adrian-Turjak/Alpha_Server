@@ -177,8 +177,8 @@ function resetPassword(req, res){
   return auth.check_token(req, res, function(req, res, user){
     //need to make sure user is authenticated already
     db.User.update(
-        { password: hashPassword(req.body.password) } /* set attributes' value */,
-        { where: { username : user.username }} /* where criteria */
+        { password: hashPassword(req.body.password) },
+        { where: { username : user.username }}
     ).then(function() {
           //after updated password now we should
           //clear token and require a new sign in
