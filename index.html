@@ -56,7 +56,7 @@ $(document).bind('pageinit', function() {
 
   $( "#button1" ).bind( "click", function(event, ui) {
     $.ajax({
-         url: "https://glacial-shelf-8985.herokuapp.com/quiz/questions",
+         url: "https://powerful-cove-1691.herokuapp.com/quiz/questions",
          type: "GET"
       }).done(function(data){
         $("#result").html("<p><b>"+data+"</b></p>");
@@ -66,7 +66,7 @@ $(document).bind('pageinit', function() {
   $( "#button3" ).bind( "click", function(event, ui) {
     var username = $("#text5").val();
     var password = $("#text6").val();
-    var jsonUrl = "https://glacial-shelf-8985.herokuapp.com/auth/login";
+    var jsonUrl = "https://powerful-cove-1691.herokuapp.com/auth/login";
     var user = { "username" : username, "password" : password};
     $.post(jsonUrl, user, function(data) {
       alert("logged in.");
@@ -76,7 +76,7 @@ $(document).bind('pageinit', function() {
   });
 
   $( "#button4" ).bind( "click", function(event, ui) {
-    var jsonUrl = "https://glacial-shelf-8985.herokuapp.com/auth/logout";
+    var jsonUrl = "https://powerful-cove-1691.herokuapp.com/auth/logout";
     $.post(jsonUrl, function(data) {
       alert("logged out.");
     }, 'json');
