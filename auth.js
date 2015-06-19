@@ -7,8 +7,8 @@ var db = require('./models');
 
 function hashPassword (password) {
   //default salt is 10
-  //var hash = bcrypt.hashSync(password);
-  var hash = crypto.createHash('md5').update(password).digest('hex');
+  var hash = bcrypt.hashSync(password);
+  //var hash = crypto.createHash('md5').update(password).digest('hex');
   return hash;
 };
 
