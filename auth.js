@@ -117,7 +117,7 @@ function securityQuestions(req, res){
   }
 
   db.SecurityQuestions.findOne({where: {username: req.body.username}}).then(function(questions) {
-    if (!user) {
+    if (!questions) {
       res.statusCode = 404;
       return res.send('Error 404: User does not exist.');
     }

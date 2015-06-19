@@ -1,0 +1,212 @@
+2015-06-19T03:34:05.671180+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:34:05.671181+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:34:05.671183+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:34:05.671185+00:00 app[web.1]:     at Module.require (module.js:364:17)
+2015-06-19T03:34:05.671187+00:00 app[web.1]:     at require (module.js:380:17)
+2015-06-19T03:34:05.671188+00:00 app[web.1]:     at Object.<anonymous> (/app/core.js:9:12)
+2015-06-19T03:34:05.671190+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:34:05.671192+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:34:05.671193+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:34:05.671195+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:34:05.671196+00:00 app[web.1]:     at Function.Module.runMain (module.js:497:10)
+2015-06-19T03:34:05.671198+00:00 app[web.1]:     at startup (node.js:119:16)
+2015-06-19T03:34:05.671199+00:00 app[web.1]:     at node.js:935:3
+2015-06-19T03:34:06.499823+00:00 heroku[web.1]: Process exited with status 8
+2015-06-19T03:34:06.512785+00:00 heroku[web.1]: State changed from starting to crashed
+2015-06-19T03:34:06.512785+00:00 heroku[web.1]: State changed from crashed to starting
+2015-06-19T03:34:11.779139+00:00 heroku[web.1]: Starting process with command `node core.js`
+2015-06-19T03:34:13.827395+00:00 app[web.1]: Detected 512 MB available memory, 512 MB limit per process (WEB_MEMORY)
+2015-06-19T03:34:13.827419+00:00 app[web.1]: Recommending WEB_CONCURRENCY=1
+2015-06-19T03:34:14.845392+00:00 app[web.1]: 
+2015-06-19T03:34:14.845483+00:00 app[web.1]: /app/auth.js:167
+2015-06-19T03:34:14.845729+00:00 app[web.1]:     securityQuestions: securityQuestions,
+2015-06-19T03:34:14.845798+00:00 app[web.1]:                        ^
+2015-06-19T03:34:14.848215+00:00 app[web.1]: ReferenceError: securityQuestions is not defined
+2015-06-19T03:34:14.848218+00:00 app[web.1]:     at Object.<anonymous> (/app/auth.js:167:24)
+2015-06-19T03:34:14.848221+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:34:14.848223+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:34:14.848219+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:34:14.848224+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:34:14.848225+00:00 app[web.1]:     at Module.require (module.js:364:17)
+2015-06-19T03:34:14.848227+00:00 app[web.1]:     at require (module.js:380:17)
+2015-06-19T03:34:14.848228+00:00 app[web.1]:     at Object.<anonymous> (/app/core.js:9:12)
+2015-06-19T03:34:14.848230+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:34:14.848231+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:34:14.848232+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:34:14.848233+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:34:14.848235+00:00 app[web.1]:     at Function.Module.runMain (module.js:497:10)
+2015-06-19T03:34:14.848236+00:00 app[web.1]:     at startup (node.js:119:16)
+2015-06-19T03:34:14.848237+00:00 app[web.1]:     at node.js:935:3
+2015-06-19T03:34:15.664390+00:00 heroku[web.1]: State changed from starting to crashed
+2015-06-19T03:34:15.648579+00:00 heroku[web.1]: Process exited with status 8
+2015-06-19T03:35:02.003354+00:00 heroku[slug-compiler]: Slug compilation started
+2015-06-19T03:35:02.003362+00:00 heroku[slug-compiler]: Slug compilation finished
+2015-06-19T03:35:01.944312+00:00 heroku[api]: Deploy 85e5391 by dannycole12@gmail.com
+2015-06-19T03:35:01.944312+00:00 heroku[api]: Release v31 created by dannycole12@gmail.com
+2015-06-19T03:35:03.686392+00:00 heroku[web.1]: Starting process with command `node core.js`
+2015-06-19T03:35:02.300012+00:00 heroku[web.1]: State changed from crashed to starting
+2015-06-19T03:35:05.779162+00:00 app[web.1]: Detected 512 MB available memory, 512 MB limit per process (WEB_MEMORY)
+2015-06-19T03:35:05.779186+00:00 app[web.1]: Recommending WEB_CONCURRENCY=1
+2015-06-19T03:35:06.453722+00:00 app[web.1]: 
+2015-06-19T03:35:06.453796+00:00 app[web.1]: /app/auth.js:167
+2015-06-19T03:35:06.454075+00:00 app[web.1]:     securityQuestions: securityQuestions,
+2015-06-19T03:35:06.454081+00:00 app[web.1]:                        ^
+2015-06-19T03:35:06.456240+00:00 app[web.1]: ReferenceError: securityQuestions is not defined
+2015-06-19T03:35:06.456243+00:00 app[web.1]:     at Object.<anonymous> (/app/auth.js:167:24)
+2015-06-19T03:35:06.456245+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:35:06.456246+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:35:06.456249+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:35:06.456251+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:35:06.456253+00:00 app[web.1]:     at Module.require (module.js:364:17)
+2015-06-19T03:35:06.456257+00:00 app[web.1]:     at Object.<anonymous> (/app/core.js:9:12)
+2015-06-19T03:35:06.456255+00:00 app[web.1]:     at require (module.js:380:17)
+2015-06-19T03:35:06.456260+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:35:06.456262+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:35:06.456264+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:35:06.456266+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:35:06.456267+00:00 app[web.1]:     at Function.Module.runMain (module.js:497:10)
+2015-06-19T03:35:06.456269+00:00 app[web.1]:     at startup (node.js:119:16)
+2015-06-19T03:35:06.456271+00:00 app[web.1]:     at node.js:935:3
+2015-06-19T03:35:07.286484+00:00 heroku[web.1]: Process exited with status 8
+2015-06-19T03:35:07.299840+00:00 heroku[web.1]: State changed from starting to crashed
+2015-06-19T03:37:25.361545+00:00 heroku[slug-compiler]: Slug compilation started
+2015-06-19T03:37:25.361566+00:00 heroku[slug-compiler]: Slug compilation finished
+2015-06-19T03:37:25.313280+00:00 heroku[api]: Deploy bffd52e by dannycole12@gmail.com
+2015-06-19T03:37:25.313280+00:00 heroku[api]: Release v32 created by dannycole12@gmail.com
+2015-06-19T03:37:25.557060+00:00 heroku[web.1]: State changed from crashed to starting
+2015-06-19T03:37:27.701267+00:00 heroku[web.1]: Starting process with command `node core.js`
+2015-06-19T03:37:29.612999+00:00 app[web.1]: Detected 512 MB available memory, 512 MB limit per process (WEB_MEMORY)
+2015-06-19T03:37:29.613036+00:00 app[web.1]: Recommending WEB_CONCURRENCY=1
+2015-06-19T03:37:30.515204+00:00 app[web.1]: 
+2015-06-19T03:37:30.515404+00:00 app[web.1]: /app/auth.js:170
+2015-06-19T03:37:30.515658+00:00 app[web.1]:     securityQuestions: securityQuestions,
+2015-06-19T03:37:30.515694+00:00 app[web.1]:                        ^
+2015-06-19T03:37:30.517409+00:00 app[web.1]: ReferenceError: securityQuestions is not defined
+2015-06-19T03:37:30.517411+00:00 app[web.1]:     at Object.<anonymous> (/app/auth.js:170:24)
+2015-06-19T03:37:30.517413+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:37:30.517414+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:37:30.517416+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:37:30.517417+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:37:30.517419+00:00 app[web.1]:     at Module.require (module.js:364:17)
+2015-06-19T03:37:30.517420+00:00 app[web.1]:     at require (module.js:380:17)
+2015-06-19T03:37:30.517422+00:00 app[web.1]:     at Object.<anonymous> (/app/core.js:9:12)
+2015-06-19T03:37:30.517424+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:37:30.517425+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:37:30.517427+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:37:30.517429+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:37:30.517431+00:00 app[web.1]:     at Function.Module.runMain (module.js:497:10)
+2015-06-19T03:37:30.517432+00:00 app[web.1]:     at startup (node.js:119:16)
+2015-06-19T03:37:30.517434+00:00 app[web.1]:     at node.js:935:3
+2015-06-19T03:37:31.414181+00:00 heroku[web.1]: State changed from starting to crashed
+2015-06-19T03:37:31.400099+00:00 heroku[web.1]: Process exited with status 8
+2015-06-19T03:40:08.814923+00:00 heroku[slug-compiler]: Slug compilation started
+2015-06-19T03:40:08.814941+00:00 heroku[slug-compiler]: Slug compilation finished
+2015-06-19T03:40:08.775791+00:00 heroku[api]: Deploy f099f56 by dannycole12@gmail.com
+2015-06-19T03:40:08.775791+00:00 heroku[api]: Release v33 created by dannycole12@gmail.com
+2015-06-19T03:40:09.773744+00:00 heroku[web.1]: State changed from crashed to starting
+2015-06-19T03:40:11.737005+00:00 heroku[web.1]: Starting process with command `node core.js`
+2015-06-19T03:40:13.960180+00:00 app[web.1]: Detected 512 MB available memory, 512 MB limit per process (WEB_MEMORY)
+2015-06-19T03:40:13.960199+00:00 app[web.1]: Recommending WEB_CONCURRENCY=1
+2015-06-19T03:40:14.648246+00:00 app[web.1]: 
+2015-06-19T03:40:14.648317+00:00 app[web.1]: /app/auth.js:170
+2015-06-19T03:40:14.648575+00:00 app[web.1]:     securityQuestions: securityQuestions,
+2015-06-19T03:40:14.648668+00:00 app[web.1]:                        ^
+2015-06-19T03:40:14.650821+00:00 app[web.1]: ReferenceError: securityQuestions is not defined
+2015-06-19T03:40:14.650824+00:00 app[web.1]:     at Object.<anonymous> (/app/auth.js:170:24)
+2015-06-19T03:40:14.650826+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:40:14.650827+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:40:14.650829+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:40:14.650830+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:40:14.650832+00:00 app[web.1]:     at Module.require (module.js:364:17)
+2015-06-19T03:40:14.650833+00:00 app[web.1]:     at require (module.js:380:17)
+2015-06-19T03:40:14.650835+00:00 app[web.1]:     at Object.<anonymous> (/app/core.js:9:12)
+2015-06-19T03:40:14.650836+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:40:14.650837+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:40:14.650839+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:40:14.650840+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:40:14.650841+00:00 app[web.1]:     at Function.Module.runMain (module.js:497:10)
+2015-06-19T03:40:14.650843+00:00 app[web.1]:     at startup (node.js:119:16)
+2015-06-19T03:40:14.650844+00:00 app[web.1]:     at node.js:935:3
+2015-06-19T03:40:15.660243+00:00 heroku[web.1]: State changed from starting to crashed
+2015-06-19T03:40:15.644198+00:00 heroku[web.1]: Process exited with status 8
+2015-06-19T03:41:45.501033+00:00 heroku[api]: Deploy 9da4b5a by dannycole12@gmail.com
+2015-06-19T03:41:45.501033+00:00 heroku[api]: Release v34 created by dannycole12@gmail.com
+2015-06-19T03:41:45.557092+00:00 heroku[slug-compiler]: Slug compilation started
+2015-06-19T03:41:45.557101+00:00 heroku[slug-compiler]: Slug compilation finished
+2015-06-19T03:41:45.595414+00:00 heroku[web.1]: State changed from crashed to starting
+2015-06-19T03:41:48.722664+00:00 heroku[web.1]: Starting process with command `node core.js`
+2015-06-19T03:41:50.340892+00:00 app[web.1]: Detected 512 MB available memory, 512 MB limit per process (WEB_MEMORY)
+2015-06-19T03:41:50.340923+00:00 app[web.1]: Recommending WEB_CONCURRENCY=1
+2015-06-19T03:41:51.036879+00:00 app[web.1]: 
+2015-06-19T03:41:51.036963+00:00 app[web.1]: /app/node_modules/sequelize/node_modules/toposort-class/toposort.js:74
+2015-06-19T03:41:51.037282+00:00 app[web.1]:                     throw new Error(
+2015-06-19T03:41:51.037346+00:00 app[web.1]:                           ^
+2015-06-19T03:41:51.038516+00:00 app[web.1]: Error: Cyclic dependency found. 'Users' is dependent of itself.
+2015-06-19T03:41:51.038518+00:00 app[web.1]: Dependency Chain: Users -> Tokens => Users
+2015-06-19T03:41:51.020897+00:00 app[web.1]: Fri, 19 Jun 2015 03:41:51 GMT body-parser deprecated undefined extended: provide extended option at core.js:19:20
+2015-06-19T03:41:51.038520+00:00 app[web.1]:     at visit (/app/node_modules/sequelize/node_modules/toposort-class/toposort.js:74:27)
+2015-06-19T03:41:51.038521+00:00 app[web.1]:     at /app/node_modules/sequelize/node_modules/toposort-class/toposort.js:96:25
+2015-06-19T03:41:51.038523+00:00 app[web.1]:     at Array.forEach (native)
+2015-06-19T03:41:51.038526+00:00 app[web.1]:     at visit (/app/node_modules/sequelize/node_modules/toposort-class/toposort.js:95:20)
+2015-06-19T03:41:51.038527+00:00 app[web.1]:     at /app/node_modules/sequelize/node_modules/toposort-class/toposort.js:96:25
+2015-06-19T03:41:51.038528+00:00 app[web.1]:     at Array.forEach (native)
+2015-06-19T03:41:51.038530+00:00 app[web.1]:     at visit (/app/node_modules/sequelize/node_modules/toposort-class/toposort.js:95:20)
+2015-06-19T03:41:51.038532+00:00 app[web.1]:     at Toposort.self.sort (/app/node_modules/sequelize/node_modules/toposort-class/toposort.js:104:21)
+2015-06-19T03:41:51.038534+00:00 app[web.1]:     at module.exports.ModelManager.forEachModel (/app/node_modules/sequelize/lib/model-manager.js:93:21)
+2015-06-19T03:41:51.038535+00:00 app[web.1]:     at module.exports.Sequelize.drop (/app/node_modules/sequelize/lib/sequelize.js:893:23)
+2015-06-19T03:41:51.038537+00:00 app[web.1]:     at module.exports.Sequelize.sync (/app/node_modules/sequelize/lib/sequelize.js:857:19)
+2015-06-19T03:41:51.038538+00:00 app[web.1]:     at Object.<anonymous> (/app/core.js:58:14)
+2015-06-19T03:41:51.038540+00:00 app[web.1]:     at Module._compile (module.js:456:26)
+2015-06-19T03:41:51.038541+00:00 app[web.1]:     at Object.Module._extensions..js (module.js:474:10)
+2015-06-19T03:41:51.038542+00:00 app[web.1]:     at Module.load (module.js:356:32)
+2015-06-19T03:41:51.038544+00:00 app[web.1]:     at Function.Module._load (module.js:312:12)
+2015-06-19T03:41:51.859885+00:00 heroku[web.1]: Process exited with status 8
+2015-06-19T03:41:51.874508+00:00 heroku[web.1]: State changed from starting to crashed
+2015-06-19T03:43:05.722876+00:00 heroku[api]: Deploy 3dd6257 by dannycole12@gmail.com
+2015-06-19T03:43:05.722949+00:00 heroku[api]: Release v35 created by dannycole12@gmail.com
+2015-06-19T03:43:05.789387+00:00 heroku[slug-compiler]: Slug compilation started
+2015-06-19T03:43:05.789567+00:00 heroku[slug-compiler]: Slug compilation finished
+2015-06-19T03:43:05.810263+00:00 heroku[web.1]: State changed from crashed to starting
+2015-06-19T03:43:07.865239+00:00 heroku[web.1]: Starting process with command `node core.js`
+2015-06-19T03:43:09.943973+00:00 app[web.1]: Detected 512 MB available memory, 512 MB limit per process (WEB_MEMORY)
+2015-06-19T03:43:09.944043+00:00 app[web.1]: Recommending WEB_CONCURRENCY=1
+2015-06-19T03:43:10.914750+00:00 app[web.1]: Fri, 19 Jun 2015 03:43:10 GMT body-parser deprecated undefined extended: provide extended option at core.js:19:20
+2015-06-19T03:43:11.033660+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "SecurityQuestions" CASCADE;
+2015-06-19T03:43:11.071857+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Trophies" CASCADE;
+2015-06-19T03:43:11.098283+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Users" CASCADE;
+2015-06-19T03:43:11.122288+00:00 app[web.1]: Executing (default): CREATE TABLE IF NOT EXISTS "Users" ("id"   SERIAL , "username" VARCHAR(255) UNIQUE, "password" VARCHAR(255), "score" INTEGER DEFAULT 0, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL, "following" INTEGER REFERENCES "Users" ("id") ON DELETE SET NULL ON UPDATE CASCADE, PRIMARY KEY ("id"));
+2015-06-19T03:43:10.947670+00:00 app[web.1]: Listening on port 6402
+2015-06-19T03:43:11.063622+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Quotes" CASCADE;
+2015-06-19T03:43:11.083389+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Tokens" CASCADE;
+2015-06-19T03:43:11.113431+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Users" CASCADE;
+2015-06-19T03:43:11.232887+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Tokens" CASCADE;
+2015-06-19T03:43:11.317786+00:00 app[web.1]: Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND a.attnum = ANY(ix.indkey) AND t.relkind = 'r' and t.relname = 'Tokens' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
+2015-06-19T03:43:11.332780+00:00 app[web.1]: Executing (default): CREATE TABLE IF NOT EXISTS "Trophies" ("id"   SERIAL , "country" VARCHAR(255), "name" VARCHAR(255), "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL, PRIMARY KEY ("id"));
+2015-06-19T03:43:11.389317+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Quotes" CASCADE;
+2015-06-19T03:43:11.459045+00:00 app[web.1]: Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND a.attnum = ANY(ix.indkey) AND t.relkind = 'r' and t.relname = 'Quotes' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
+2015-06-19T03:43:11.472604+00:00 app[web.1]: Executing (default): CREATE TABLE IF NOT EXISTS "SecurityQuestions" ("id"   SERIAL , "username" VARCHAR(255), "questionOne" VARCHAR(255), "questionTwo" VARCHAR(255), "answerOne" VARCHAR(255), "answerTwo" VARCHAR(255), "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL, PRIMARY KEY ("id"));
+2015-06-19T03:43:11.216159+00:00 app[web.1]: Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND a.attnum = ANY(ix.indkey) AND t.relkind = 'r' and t.relname = 'Users' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
+2015-06-19T03:43:11.244260+00:00 app[web.1]: Executing (default): CREATE TABLE IF NOT EXISTS "Tokens" ("id"   SERIAL , "token" VARCHAR(255) UNIQUE, "expires" TIMESTAMP WITH TIME ZONE, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL, "UserId" INTEGER REFERENCES "Users" ("id") ON DELETE SET NULL ON UPDATE CASCADE, PRIMARY KEY ("id"));
+2015-06-19T03:43:11.325921+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "Trophies" CASCADE;
+2015-06-19T03:43:11.384149+00:00 app[web.1]: Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND a.attnum = ANY(ix.indkey) AND t.relkind = 'r' and t.relname = 'Trophies' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
+2015-06-19T03:43:11.409096+00:00 app[web.1]: Executing (default): CREATE TABLE IF NOT EXISTS "Quotes" ("id"   SERIAL , "question" VARCHAR(255), "trophy" VARCHAR(255), "choice1" VARCHAR(255), "choice2" VARCHAR(255), "choice3" VARCHAR(255), "choice4" VARCHAR(255), "answer" VARCHAR(255), "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL, "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL, PRIMARY KEY ("id"));
+2015-06-19T03:43:11.464552+00:00 app[web.1]: Executing (default): DROP TABLE IF EXISTS "SecurityQuestions" CASCADE;
+2015-06-19T03:43:11.527855+00:00 app[web.1]: Executing (default): SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND a.attnum = ANY(ix.indkey) AND t.relkind = 'r' and t.relname = 'SecurityQuestions' GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;
+2015-06-19T03:43:11.753306+00:00 heroku[web.1]: State changed from starting to up
+2015-06-19T03:43:12.090373+00:00 app[web.1]: Executing (default): INSERT INTO "Users" ("id","username","password","score","updatedAt","createdAt") VALUES (DEFAULT,'admin','$2a$10$hSjdJKRuNcGtnv7eWA6TqeAdXCOOHTXh6UMgx9tmn1dN72OX8EH82',0,'2015-06-19 03:43:12.066 +00:00','2015-06-19 03:43:12.066 +00:00') RETURNING *;
+2015-06-19T03:43:12.707411+00:00 app[web.1]: Executing (default): INSERT INTO "Users" ("id","username","password","score","updatedAt","createdAt") VALUES (DEFAULT,'demo','$2a$10$aiDvKIy7QQl5An0BEjzUyOOO7X5gUthYT7eZf/BKC7IGU08rFhs..',0,'2015-06-19 03:43:12.701 +00:00','2015-06-19 03:43:12.701 +00:00') RETURNING *;
+2015-06-19T03:43:36.174226+00:00 app[web.1]: Executing (default): SELECT "id", "username", "password", "score", "createdAt", "updatedAt", "following" FROM "Users" AS "User" WHERE "User"."username" = 'dan' LIMIT 1;
+2015-06-19T03:43:36.356156+00:00 app[web.1]: Executing (default): INSERT INTO "Users" ("id","username","password","score","updatedAt","createdAt") VALUES (DEFAULT,'dan','$2a$10$l1zzSCYArGnTtYmqClClPOJxs0Y6Y6MJrrjyz2nGD34eNKL2HkcXe',0,'2015-06-19 03:43:36.355 +00:00','2015-06-19 03:43:36.355 +00:00') RETURNING *;
+2015-06-19T03:43:36.621440+00:00 heroku[router]: at=info method=POST path="/auth/register" host=powerful-cove-1691.herokuapp.com request_id=c1982393-ba2b-42f9-a479-36cc3741867c fwd="125.239.160.28" dyno=web.1 connect=2ms service=498ms status=200 bytes=233
+2015-06-19T03:43:36.610111+00:00 app[web.1]: Executing (default): INSERT INTO "SecurityQuestions" ("id","username","questionOne","questionTwo","answerOne","answerTwo","updatedAt","createdAt") VALUES (DEFAULT,'dan','What''s my middle name?','What''s my last name?','$2a$10$/WzCAJSkcksDcf/Ug1fCvuNqNWvR3P3OeslOo62DPm7DGfaxfPlgq','$2a$10$8pptpyPkbtkSsI37CrtxFO5h6csTTmUmAO75vB4sz3WNCdf6X5EZu','2015-06-19 03:43:36.608 +00:00','2015-06-19 03:43:36.608 +00:00') RETURNING *;
+2015-06-19T03:44:08.533980+00:00 app[web.1]: Executing (default): SELECT "id", "username", "questionOne", "questionTwo", "answerOne", "answerTwo", "createdAt", "updatedAt" FROM "SecurityQuestions" AS "SecurityQuestions" WHERE "SecurityQuestions"."username" = 'dan' LIMIT 1;
+2015-06-19T03:44:08.541252+00:00 app[web.1]: Unhandled rejection ReferenceError: user is not defined
+2015-06-19T03:44:08.541255+00:00 app[web.1]:     at null.<anonymous> (/app/auth.js:120:10)
+2015-06-19T03:44:08.541256+00:00 app[web.1]:     at tryCatcher (/app/node_modules/sequelize/node_modules/bluebird/js/main/util.js:24:31)
+2015-06-19T03:44:08.541259+00:00 app[web.1]:     at Promise._settlePromiseFromHandler (/app/node_modules/sequelize/node_modules/bluebird/js/main/promise.js:454:31)
+2015-06-19T03:44:08.541260+00:00 app[web.1]:     at Promise._settlePromiseAt (/app/node_modules/sequelize/node_modules/bluebird/js/main/promise.js:530:18)
+2015-06-19T03:44:08.541262+00:00 app[web.1]:     at Async._drainQueue (/app/node_modules/sequelize/node_modules/bluebird/js/main/async.js:187:12)
+2015-06-19T03:44:08.541263+00:00 app[web.1]:     at Async._drainQueues (/app/node_modules/sequelize/node_modules/bluebird/js/main/async.js:192:10)
+2015-06-19T03:44:08.541265+00:00 app[web.1]:     at Async.drainQueues (/app/node_modules/sequelize/node_modules/bluebird/js/main/async.js:15:14)
+2015-06-19T03:44:08.541266+00:00 app[web.1]:     at process._tickCallback (node.js:448:13)
+2015-06-19T03:44:38.505226+00:00 heroku[router]: at=error code=H12 desc="Request timeout" method=POST path="/auth/securityQuestions" host=powerful-cove-1691.herokuapp.com request_id=c12c3f4d-96a0-4941-925d-1c9bda158de6 fwd="125.239.160.28" dyno=web.1 connect=2ms service=30000ms status=503 bytes=0
