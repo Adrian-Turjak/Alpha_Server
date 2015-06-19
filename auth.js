@@ -26,6 +26,7 @@ function login(req, res) {
       return res.send('Error 404: User does not exist.');
     }
     var hash = hashPassword(req.body.password);
+    console.log(user.password);
     console.log(bcrypt.compareSync(user.password, hash));
     if(bcrypt.compareSync(user.password, hash)){
       db.Token.create({
