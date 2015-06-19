@@ -6,9 +6,9 @@ var db = require('./models');
 
 
 function hashPassword (password) {
+  //default 10, higher value = longer to gen hash
   var salt = bcrypt.genSaltSync(10);
   var hash = bcrypt.hashSync(password, salt);
-  //var hash = crypto.createHash('md5').update(password).digest('hex');
   return hash;
 };
 
@@ -25,11 +25,8 @@ function login(req, res) {
       res.statusCode = 404;
       return res.send('Error 404: User does not exist.');
     }
-    var hash = hashPassword(req.body.password);
-    console.log(user.password);
-    console.log(req.body.password);
-    console.log(hash);
-    console.log(bcrypt.compareSync(user.password, hash));
+
+    //compare plaintext password to the hashed password in db
     if(bcrypt.compareSync(req.body.password, user.password)){
       db.Token.create({
         token: crypto.randomBytes(32).toString('hex'),
@@ -37,9 +34,8 @@ function login(req, res) {
         UserId: user.id
       }).then(function(token) {
         var t = {'token': token.token, 'message': "Logged in."};
-        //put cookie here, current time is 15min 
-        //note cookies do not work with local webpages
-        res.cookie('token', token.token, {maxAge: 900000});
+        //note: cookies do not work with local webpages
+        res.cookie('token', token.token, {maxAge: 10*60000});
 
         return res.send(t);
       });      
