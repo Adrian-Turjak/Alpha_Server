@@ -16,7 +16,8 @@ if (!global.hasOwnProperty('db')) {
     User:      sequelize.import(__dirname + '/user'),
     Token:      sequelize.import(__dirname + '/token'),
     Trophy:      sequelize.import(__dirname + '/trophy'),
-    Question:      sequelize.import(__dirname + '/question')
+    Question:      sequelize.import(__dirname + '/question'),
+    SecurityQuestions: sequelize.import(__dirname + '/securityQuestions')
   }
 
 

@@ -29,8 +29,8 @@ app.use(cors());
 app.post('/auth/login', auth.login);
 app.post('/auth/register', auth.register);
 app.post('/auth/logout', auth.logout);
-app.post('/auth/securityQuestions', auth.securityQuestions);
 app.post('/auth/reset', auth.resetPassword);
+app.get('/auth/securityQuestions', auth.securityQuestions);
 
 // quiz endpoints
 app.get('/quiz/questions', quiz.build_quiz);

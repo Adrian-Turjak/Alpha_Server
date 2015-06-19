@@ -84,7 +84,17 @@ function register(req, res) {
         username: req.body.username,
         password: hashPassword(req.body.password)
       }).then(function(){
-        return res.send('registration success');
+        //now we want to create questions
+        db.SecurityQuestions.create({
+          username: req.body.username,
+          questionOne: "What's my middle name?",
+          questionTwo: "What's my last name?",
+          answerOne: "james",
+          answerTwo: "cole"
+        }).then(function(){
+          return res.send('registration success');
+        })
+
       });
     }
     else {
@@ -99,9 +109,19 @@ function register(req, res) {
 
 function securityQuestions(req, res){
   //security questions to be displayed when username is entered
+  if(!req.body.hasOwnProperty('username')) {
+    res.statusCode = 400;
+    return res.send('Error 400: Post syntax incorrect.');
+  }
 
-  return res.send('securityQuestions');
-};
+  db.User.findOne({where: {username: req.body.username}}).then(function(user) {
+    if (!user) {
+      res.statusCode = 404;
+      return res.send('Error 404: User does not exist.');
+    }
+    return res.send('securityQuestions');
+  });
+}
 
 function resetPassword(req, res){
   //once the user has successfully answered security questions, 
