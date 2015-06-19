@@ -46,6 +46,7 @@ function login(req, res) {
   });
 };
 
+/* logs the user out by clearing cookie on client and removing from db */
 function logout(req, res){
   if(!req.cookies.token){
     console.log('No token');
@@ -67,7 +68,7 @@ function logout(req, res){
 };
 
 
-
+/* Registers a user with username, password and security questions/answers */
 function register(req, res) {
   // username, password, security questions
   //do 2 security questions
@@ -89,8 +90,8 @@ function register(req, res) {
           username: req.body.username,
           questionOne: "What's my middle name?",
           questionTwo: "What's my last name?",
-          answerOne: "james",
-          answerTwo: "cole"
+          answerOne: hashPassword("james"),
+          answerTwo: hashPassword("cole")
         }).then(function(){
           return res.send('registration success');
         })
@@ -106,21 +107,26 @@ function register(req, res) {
 };
 
 
-
-function securityQuestions(req, res){
+/* Takes a username and returns the security questions associated with it */
+function securityQuestionsReq(req, res){
   //security questions to be displayed when username is entered
   if(!req.body.hasOwnProperty('username')) {
     res.statusCode = 400;
     return res.send('Error 400: Post syntax incorrect.');
   }
 
-  db.User.findOne({where: {username: req.body.username}}).then(function(user) {
+  db.SecurityQuestions.findOne({where: {username: req.body.username}}).then(function(questions) {
     if (!user) {
       res.statusCode = 404;
       return res.send('Error 404: User does not exist.');
     }
-    return res.send('securityQuestions');
+    var response = {"question_one":questions.questionOne, "question_two":questions.questionTwo}
+    return res.send(response);
   });
+}
+
+function securityQuestionsCheck(){
+
 }
 
 function resetPassword(req, res){
