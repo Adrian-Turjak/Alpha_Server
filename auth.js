@@ -6,11 +6,8 @@ var db = require('./models');
 
 
 function hashPassword (password) {
-  //default salt is 10
-  console.log("hashing");
   var salt = bcrypt.genSaltSync(10);
   var hash = bcrypt.hashSync(password, salt);
-  console.log(hash);
   //var hash = crypto.createHash('md5').update(password).digest('hex');
   return hash;
 };
@@ -29,6 +26,7 @@ function login(req, res) {
       return res.send('Error 404: User does not exist.');
     }
     var hash = hashPassword(req.body.password);
+    console.log(bcrypt.compareSync(user.password, hash));
     if(bcrypt.compareSync(user.password, hash)){
       db.Token.create({
         token: crypto.randomBytes(32).toString('hex'),
