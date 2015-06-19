@@ -120,9 +120,43 @@ function securityQuestions(req, res){
       res.statusCode = 404;
       return res.send('Error 404: User does not exist.');
     }
-    var response = {"question_one":questions.questionOne, "question_two":questions.questionTwo}
+    var response = {"question_one":questions.questionOne, "question_two":questions.questionTwo};
     return res.send(response);
   });
+}
+
+function securityQuestionAnswer(req, res){
+  //need username again to check answers
+  if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('answer_one') || req.body.hasOwnProperty('answer_two')) {
+    res.statusCode = 400;
+    return res.send('Error 400: Post syntax incorrect.');
+  }
+
+  db.SecurityQuestions.findOne({where: {username: req.body.username}}).then(function(questions) {
+    if (!questions) {
+      res.statusCode = 404;
+      return res.send('Error 404: User does not exist.');
+    }
+    var answerOne = questions.answerOne;
+    var answerTwo = questions.answerTwo;
+    if(bcrypt.compareSync(req.body.answer_one, answerTwo) && bcrypt.compareSync(req.body.answer_one, answerTwo)){
+      db.Token.create({
+        token: crypto.randomBytes(32).toString('hex'),
+        expires: new Date(Date.now() + 10*60000),
+        UserId: user.id
+      }).then(function(token) {
+        var t = {'token': token.token, 'message': "Logged in."};
+        //note: cookies do not work with local webpages
+        res.cookie('token', token.token, {maxAge: 10*60000});
+        return res.send("correct! redirecting to login. Here's your token: " + t);
+      });
+
+    }
+    else {
+      return res.send("incorrect answers");
+    }
+  });
+
 }
 
 
@@ -163,6 +197,7 @@ var auth = {
     check_token: check_token,
     register: register,
     securityQuestions: securityQuestions,
+    securityQuestionAnswer: securityQuestionAnswer,
     resetPassword: resetPassword
 };
 

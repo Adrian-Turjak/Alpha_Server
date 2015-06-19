@@ -31,6 +31,7 @@ app.post('/auth/register', auth.register);
 app.post('/auth/logout', auth.logout);
 app.post('/auth/reset', auth.resetPassword);
 app.post('/auth/securityQuestions', auth.securityQuestions);
+app.post('/auth/securityQuestionAnswer');
 
 // quiz endpoints
 app.get('/quiz/questions', quiz.build_quiz);
