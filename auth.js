@@ -141,6 +141,8 @@ function securityQuestionAnswer(req, res){
     var answerTwo = questions.answerTwo;
     console.log(answerOne);
     console.log(answerTwo);
+    console.log(req.body.answer_one);
+    console.log(req.body.answer_two);
     if(bcrypt.compareSync(req.body.answer_one, answerTwo) && bcrypt.compareSync(req.body.answer_one, answerTwo)){
       db.Token.create({
         token: crypto.randomBytes(32).toString('hex'),
