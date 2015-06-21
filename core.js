@@ -59,11 +59,15 @@ var server = app.listen(process.env.PORT, function() {
 db.sequelize.sync({ force: true }).then(function(){
   db.User.create({
     username: 'admin',
-    password: auth.hashPassword("password")
-  }).then(function(user){
+    password: auth.hashPassword("password"),
+    icon: "nz.png"
+  }).then(function (user){
     db.User.create({
       username: 'demo',
-      password: auth.hashPassword("123456")
+      password: auth.hashPassword("123456"),
+      icon: "nz.png"
+    }).then(function (user2) {
+      user.addFollowers(user2);
     });
   });
   

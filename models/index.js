@@ -1,9 +1,8 @@
 if (!global.hasOwnProperty('db')) {
   var Sequelize = require('sequelize')
     , sequelize = null
-    , database_url = process.env.DATABASE_URL || "postgres://pyblqjjvqlrzvc:MvyQSuj04MN6a5wuysnInoPy08@ec2-54-83-17-8.compute-1.amazonaws.com:5432/d9khtmbs5dcl24";
 
-  sequelize = new Sequelize(database_url, {
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect:  'postgres',
     protocol: 'postgres',
     port:     5432
@@ -21,7 +20,13 @@ if (!global.hasOwnProperty('db')) {
   }
 
 
-  global.db.User.hasMany(global.db.User, {foreignKey: 'following'});
+  global.db.User.belongsToMany(global.db.User, {as: "Followers", through: 'followers'});
+
+  global.db.Trophy.belongsToMany(global.db.User, {as: "Users", through: 'UserTrophies'});
+  global.db.User.belongsToMany(global.db.Trophy, {as: "Trophies", through: 'UserTrophies'});
+
+  global.db.Question.belongsToMany(global.db.User, {as: "Users", through: 'UserQuestions'});
+  global.db.User.belongsToMany(global.db.Question, {as: "Questions", through: 'UserQuestions'});
   
   global.db.Token.belongsTo(global.db.User);
   global.db.User.hasMany(global.db.Token);

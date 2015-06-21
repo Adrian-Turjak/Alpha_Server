@@ -22,16 +22,25 @@
         <div id="login"  class="functions">
             <label for="text-2">Login:</label>
             <label for="text-5">username:</label>
-            <input name="text-5" id="text5" value="foo" type="text">
+            <input name="text-5" id="text5" value="admin" type="text">
             <label for="text-6">password:</label>
-            <input name="text-7" id="text6" value="some text" type="password">
+            <input name="text-7" id="text6" value="password" type="password">
             <input type="submit" value="Submit Button" id="button3" />
         </div>
 
         <div id="queries" style="display: none;">
-          <label for="text-1">Get a quote:</label>
-          <input name="text-1" id="text1" value="1" type="text">
-          <input type="submit" value="Submit Button" id="button1" />
+          <input type="submit" value="Get Quiz" id="button1" />
+          <input type="submit" value="get Trophies" id="button5" />
+          <input type="submit" value="get score" id="button6" />
+          <label for="text-1">name:</label>
+          <input name="text-1" id="text1" value="" type="text">
+          <label for="text-2">country:</label>
+          <input name="text-2" id="text2" value="" type="text">
+          <input type="submit" value="add trophy" id="button7" />
+          <label for="text-3">username:</label>
+          <input name="text-3" id="text3" value="" type="text">
+          <input type="submit" value="follow user" id="button8" />          
+          <input type="submit" value="unfollow user" id="button9" />
 
       	  <!-- put the result here -->
       	  <div id="result"  class="functions"></div>
@@ -54,19 +63,66 @@ $(document).bind('pageinit', function() {
     cache: false
   });
 
+  var server_url = document.URL;
+
   $( "#button1" ).bind( "click", function(event, ui) {
     $.ajax({
-         url: "https://powerful-cove-1691.herokuapp.com/quiz/questions",
+         url: server_url + "quiz/questions",
          type: "GET"
       }).done(function(data){
+        console.log(data);
         $("#result").html("<p><b>"+data+"</b></p>");
     });
   });
+  $( "#button5" ).bind( "click", function(event, ui) {
+    $.ajax({
+         url: server_url + "user/trophies",
+         type: "GET"
+      }).done(function(data){
+        console.log(data);
+        $("#result").html("<p><b>"+data+"</b></p>");
+    });
+  });
+  $( "#button6" ).bind( "click", function(event, ui) {
+    $.ajax({
+         url: server_url + "user/score",
+         type: "GET"
+      }).done(function(data){
+        console.log(data);
+        $("#result").html("<p><b>"+data+"</b></p>");
+    });
+  });
+  $( "#button7" ).bind( "click", function(event, ui) {
+    var name = $("#text1").val();
+    var country = $("#text2").val();
+    var jsonUrl = server_url + "user/trophies";
+    var user = { "name" : name, "country" : country};
+    $.post(jsonUrl, user, function(data) {
+      console.log(data);
+    }, 'json');
+  });
+  $( "#button8" ).bind( "click", function(event, ui) {
+    var username = $("#text3").val();
+    var jsonUrl = server_url + "user/follow";
+    var user = { "username" : username};
+    $.post(jsonUrl, user, function(data) {
+      console.log(data);
+    }, 'json');
+  });
+  $( "#button9" ).bind( "click", function(event, ui) {
+    var username = $("#text3").val();
+    var jsonUrl = server_url + "user/unfollow";
+    var user = { "username" : username};
+    $.post(jsonUrl, user, function(data) {
+      console.log(data);
+    }, 'json');
+  });
+
 
   $( "#button3" ).bind( "click", function(event, ui) {
     var username = $("#text5").val();
     var password = $("#text6").val();
-    var jsonUrl = "https://powerful-cove-1691.herokuapp.com/auth/login";
+    var jsonUrl = server_url + "auth/login";
     var user = { "username" : username, "password" : password};
     $.post(jsonUrl, user, function(data) {
       alert("logged in.");
@@ -76,7 +132,7 @@ $(document).bind('pageinit', function() {
   });
 
   $( "#button4" ).bind( "click", function(event, ui) {
-    var jsonUrl = "https://powerful-cove-1691.herokuapp.com/auth/logout";
+    var jsonUrl = server_url + "auth/logout";
     $.post(jsonUrl, function(data) {
       alert("logged out.");
     }, 'json');

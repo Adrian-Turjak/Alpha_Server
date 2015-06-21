@@ -2,7 +2,7 @@ var db = require('./models');
 var auth = require('./auth');
 
 
-function build_quiz(req, res) {
+function build_quiz(req, res, user) {
   return auth.check_token(req, res, function(req, res, user){
     console.log(user);
     var quiz = {
@@ -20,14 +20,14 @@ function build_quiz(req, res) {
 };
 
 
-function answer_question(req, res) {
+function answer_question(req, res, user) {
   return auth.check_token(req, res, function(req, res, user){
     
   });
 };
 
 
-function add_question(req, res) {
+function add_question(req, res, user) {
   return auth.check_token(req, res, function(req, res, user){
     
   });
