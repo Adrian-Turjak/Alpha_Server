@@ -4,14 +4,15 @@ var auth = require('./auth');
 
 function get_trophies(req, res, user) {
   return auth.check_token(req, res, function (req, res, user){
-    console.log(user);
     user.getTrophies().then(function(trophies){
       t = {
         "trophies": []
       }
-      for (i = 0; i < trophies.length; i++) { 
-        t.trophies.push(
-          {"name": trophies[i].name, "country": trophies[i].country})
+      if(trophies){
+        for (i = 0; i < trophies.length; i++) { 
+          t.trophies.push(
+            {"name": trophies[i].name, "country": trophies[i].country})
+        }
       }
       return res.send(t);
     });

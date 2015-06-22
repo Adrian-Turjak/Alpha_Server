@@ -191,12 +191,12 @@ function resetPassword(req, res){
 
 
 function check_token(req, res, callback){
-  if(!req.cookies.token) {
+  if(!req.cookies.token && !req.headers.token) {
     res.statusCode = 403;
     return res.send('Error 403: Not logged in.');
   }
-
-  db.Token.findOne({where: {token: req.cookies.token}}).then(function(token) {
+  var token = req.cookies.token || req.headers.token
+  db.Token.findOne({where: {token: token}}).then(function(token) {
     var now = new Date(Date.now());
     if(token && token.expires > now){
       db.User.findOne({where: {id: token.UserId}}).then(function(user){

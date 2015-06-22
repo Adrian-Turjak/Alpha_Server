@@ -60,7 +60,8 @@ db.sequelize.sync({ force: true }).then(function(){
   db.User.create({
     username: 'admin',
     password: auth.hashPassword("password"),
-    icon: "nz.png"
+    icon: "nz.png",
+    admin: true
   }).then(function (user){
     db.User.create({
       username: 'demo',
