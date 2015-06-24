@@ -63,7 +63,6 @@ function logout(req, res){
     return res.send('Logout Success');
     //cookie has been cleared and user should be required to login
   });
-  
 };
 
 
@@ -73,13 +72,21 @@ function register(req, res) {
   //do 2 security questions
   //currently only implement for 2 security questions
 
-  if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('password')) {
+  if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('password')
+    || !req.body.hasOwnProperty('questionOne') || !req.body.hasOwnProperty('questionTwo')
+    || !req.body.hasOwnProperty('answerOne') || !req.body.hasOwnProperty('answerTwo')
+    || !req.body.hasOwnProperty('icon')) {
     res.statusCode = 400;
     return res.send('Error 400: Post syntax incorrect.');
   }
 
   var username = req.body.username;
   var password = req.body.password;
+  var questionOne = req.body.questionOne;
+  var questionTwo = req.body.questionTwo;
+  var answerOne = req.body.answerOne;
+  var answerTwo = req.body.answerTwo;
+  var userIcon = req.body.icon;
 
   if(username.length < 2){
     res.statisCode == 400;
@@ -98,25 +105,28 @@ function register(req, res) {
       //make sure that user doesn't exist, so we can create another user
       db.User.create({
         username: username,
-        password: hashPassword(password)
-      }).then(function(){
+        password: hashPassword(password),
+        icon: userIcon
+      }).then(function(user){
         //now we want to create questions
         db.SecurityQuestions.create({
           username: username,
-          questionOne: "What's my middle name?",
-          questionTwo: "What's my last name?",
-          answerOne: hashPassword("james"),
-          answerTwo: hashPassword("cole")
+          questionOne: questionOne,
+          questionTwo: questionTwo,
+          answerOne: hashPassword(answerOne),
+          answerTwo: hashPassword(answerTwo),
+          UserId: user.id
         }).then(function(){
-          res.statusCode = 200; //OK
-          return res.send('registration success');
+          res.statusCode = 201; //Created
+          var response = {"result": "registration success"};
+          return res.send(response);
         })
-
       });
     }
     else {
       res.statusCode = 422;
-      return res.send("Username already exists");
+      var response = {"error":"registration failed"};
+      return res.send(response);
     }
   });
    
@@ -155,10 +165,6 @@ function securityQuestionAnswer(req, res){
     }
     var answerOne = questions.answerOne;
     var answerTwo = questions.answerTwo;
-    console.log(answerOne);
-    console.log(answerTwo);
-    console.log(req.body.answer_one);
-    console.log(req.body.answer_two);
     if(bcrypt.compareSync(req.body.answer_one, answerOne) && bcrypt.compareSync(req.body.answer_two, answerTwo)){
       //correct security answers, so let's give the user a token to change their password
       db.User.findOne({where: {username: req.body.username}}).then(function(user) {
@@ -167,15 +173,18 @@ function securityQuestionAnswer(req, res){
             expires: new Date(Date.now() + 10*60000),
             UserId: user.id
           }).then(function(token) {
-            var t = {'token': token.token, 'message': "Logged in."};
+
+            var response = {'token': token.token, 'message': "Logged in."};
             //note: cookies do not work with local webpages
             res.cookie('token', token.token, {maxAge: 10*60000});
-            return res.send(t);
+            return res.send(response);
           });
       });
     }
     else {
-      return res.send("incorrect answers");
+      res.statusCode = 400; 
+      var response = {"error": "incorrect answers"};
+      return res.send(response);
     }
   });
 
@@ -191,14 +200,17 @@ function resetPassword(req, res){
   //once the user has successfully answered security questions,
   //they will then be able to reset their password with a token
   return auth.check_token(req, res, function(req, res, user){
-    //need to make sure user is authenticated already
+    //need to make sure user is authenticated 
+    /*
     db.User.update(
         { password: hashPassword(req.body.password) },
         { where: { username : user.username }}
     ).then(function() {
+
           //after updated password now we should
           //clear token and require a new sign in
           })
+    */
 
   });
 };
