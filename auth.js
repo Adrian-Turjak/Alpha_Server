@@ -97,17 +97,18 @@ function register(req, res) {
     if(!user) {
       //make sure that user doesn't exist, so we can create another user
       db.User.create({
-        username: req.body.username,
-        password: hashPassword(req.body.password)
+        username: username,
+        password: hashPassword(password)
       }).then(function(){
         //now we want to create questions
         db.SecurityQuestions.create({
-          username: req.body.username,
+          username: username,
           questionOne: "What's my middle name?",
           questionTwo: "What's my last name?",
           answerOne: hashPassword("james"),
           answerTwo: hashPassword("cole")
         }).then(function(){
+          res.statusCode = 200; //OK
           return res.send('registration success');
         })
 

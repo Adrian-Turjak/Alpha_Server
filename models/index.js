@@ -31,6 +31,9 @@ if (!global.hasOwnProperty('db')) {
   global.db.Token.belongsTo(global.db.User);
   global.db.User.hasMany(global.db.Token);
   
+  global.db.SecurityQuestions.belongsTo(global.db.User);
+  global.db.User.hasOne(global.db.SecurityQuestions);
+
 }
 
 module.exports = global.db
