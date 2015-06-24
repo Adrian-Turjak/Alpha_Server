@@ -12,6 +12,10 @@ function hashPassword (password) {
   return hash;
 };
 
+function tokenExpiration(minutes){
+  return minutes*60000;
+}
+
 //make it so that each user can have at most one token. Cannot login to multiple devices. 
 //stops database from filling with tokens.
 //code left for sending tokens still here. 
@@ -25,17 +29,17 @@ function login(req, res) {
       res.statusCode = 404;
       return res.send('Error 404: User does not exist.');
     }
-
+    var tokenExpiry = tokenExpiration(60);
     //compare plaintext password to the hashed password in db
     if(bcrypt.compareSync(req.body.password, user.password)){
       db.Token.create({
         token: crypto.randomBytes(32).toString('hex'),
-        expires: new Date(Date.now() + 10*60000),
+        expires: new Date(Date.now() + tokenExpiry),
         UserId: user.id
       }).then(function(token) {
         var t = {'token': token.token, 'message': "Logged in.", 'icon': user.icon};
         //note: cookies do not work with local webpages
-        res.cookie('token', token.token, {maxAge: 10*60000});
+        res.cookie('token', token.token, {maxAge: tokenExpiry});
         return res.send(t);
       });      
     } else {
@@ -47,20 +51,22 @@ function login(req, res) {
 
 /* logs the user out by clearing cookie on client and removing from db */
 function logout(req, res){
-  if(!req.cookies.token){
-    console.log('No token');
+  if(!req.cookies.token && !req.headers.token){
     res.statusCode = 404;
-    return res.send('Error 404: Token not found');
+    var response = {"result": "error 404: token not found"};
+    return res.send(response);
     }
+    var token = req.cookies.token || req.headers.token;
   //delete token from db
   db.Token.destroy({
     where: {
-      token: req.cookies.token
+      token: token
     }
   }).then(function(){
     res.clearCookie('token');
     res.statusCode = 200; //OK
-    return res.send('Logout Success');
+    var response = {"result":"logout success"};
+    return res.send(response);
     //cookie has been cleared and user should be required to login
   });
 };
@@ -77,7 +83,8 @@ function register(req, res) {
     || !req.body.hasOwnProperty('answerOne') || !req.body.hasOwnProperty('answerTwo')
     || !req.body.hasOwnProperty('icon')) {
     res.statusCode = 400;
-    return res.send('Error 400: Post syntax incorrect.');
+    var response = {"result":"error 400: Post syntax incorrect"};
+    return res.send(response);
   }
 
   var username = req.body.username;
@@ -89,16 +96,24 @@ function register(req, res) {
   var userIcon = req.body.icon;
 
   if(username.length < 2){
-    res.statisCode == 400;
-    var response = {"error":"username too short: minimum of 2 characters"};
+    res.statusCode == 400;
+    var response = {"result":"username too short: minimum of 2 characters"};
     return res.send(response);
   }
 
   if(password.length < 4){
     res.statusCode == 400;
-    var response = {"error":"password too short: minimum of 4 characters"};
+    var response = {"result":"password too short: minimum of 4 characters"};
     return res.send(response);
   }
+
+  if(answerOne.length < 4){
+    res.statusCode == 400;
+    var response = {"result":"answer one too short: minimum of 4 characters"};
+    return res.send(response);
+  }
+
+
 
   db.User.findOne({where: {username: req.body.username}}).then(function(user) {
     if(!user) {
@@ -125,7 +140,7 @@ function register(req, res) {
     }
     else {
       res.statusCode = 422;
-      var response = {"error":"registration failed"};
+      var response = {"result":"registration failed"};
       return res.send(response);
     }
   });
@@ -197,25 +212,22 @@ function resetPassword(req, res){
     res.statusCode = 400;
     return res.send('Error 400: Post syntax incorrect.');
   }
-  //once the user has successfully answered security questions,
-  //they will then be able to reset their password with a token
+
+  if(password.length < 4){
+    res.statusCode == 400;
+    var response = {"result":"password too short: minimum of 4 characters"};
+    return res.send(response);
+  }
+  //they need a token to change password...
   return auth.check_token(req, res, function(req, res, user){
-    //need to make sure user is authenticated 
-    /*
-    db.User.update(
-        { password: hashPassword(req.body.password) },
-        { where: { username : user.username }}
-    ).then(function() {
-
-          //after updated password now we should
-          //clear token and require a new sign in
-          })
-    */
-
+    //need to make sure user is authenticated
+    user.password = hashPassword(req.body.password);
+    user.save();
+    res.statusCode = 201; //CREATED
+    var response = {"result":"successfully password changed"};
+    res.send(response);
   });
 };
-
-
 
 
 function check_token(req, res, callback){
@@ -223,11 +235,13 @@ function check_token(req, res, callback){
     res.statusCode = 403;
     return res.send('Error 403: Not logged in.');
   }
-  var token = req.cookies.token || req.headers.token
+  var token = req.cookies.token || req.headers.token;
   db.Token.findOne({where: {token: token}}).then(function(token) {
     var now = new Date(Date.now());
     if(token && token.expires > now){
       db.User.findOne({where: {id: token.UserId}}).then(function(user){
+        token.expires = new Date(Date.now() + tokenExpiration(60));
+        token.save();
         return callback(req, res, user);
       });
     } else {
