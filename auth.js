@@ -33,10 +33,9 @@ function login(req, res) {
         expires: new Date(Date.now() + 10*60000),
         UserId: user.id
       }).then(function(token) {
-        var t = {'token': token.token, 'message': "Logged in."};
+        var t = {'token': token.token, 'message': "Logged in.", 'icon': user.icon};
         //note: cookies do not work with local webpages
         res.cookie('token', token.token, {maxAge: 10*60000});
-
         return res.send(t);
       });      
     } else {
@@ -73,9 +72,25 @@ function register(req, res) {
   // username, password, security questions
   //do 2 security questions
   //currently only implement for 2 security questions
+
   if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('password')) {
     res.statusCode = 400;
     return res.send('Error 400: Post syntax incorrect.');
+  }
+
+  var username = req.body.username;
+  var password = req.body.password;
+
+  if(username.length < 2){
+    res.statisCode == 400;
+    var response = {"error":"username too short: minimum of 2 characters"};
+    return res.send(response);
+  }
+
+  if(password.length < 4){
+    res.statusCode == 400;
+    var response = {"error":"password too short: minimum of 4 characters"};
+    return res.send(response);
   }
 
   db.User.findOne({where: {username: req.body.username}}).then(function(user) {
