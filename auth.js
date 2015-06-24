@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt');
 var db = require('./models');
 
 
-
+/* uses bcrypt to hash a specified password */
 function hashPassword (password) {
   //default 10, higher value = longer to gen hash
   var salt = bcrypt.genSaltSync(10);
@@ -12,22 +12,23 @@ function hashPassword (password) {
   return hash;
 };
 
+/* helper function for setting a token expiration time, returns in minutes specified */
 function tokenExpiration(minutes){
   return minutes*60000;
 }
 
-//make it so that each user can have at most one token. Cannot login to multiple devices. 
-//stops database from filling with tokens.
-//code left for sending tokens still here. 
+/* if successful logs the user in and creates a new token for authentication */
 function login(req, res) {
   if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('password')) {
     res.statusCode = 400;
-    return res.send('Error 400: Post syntax incorrect.');
+    var response = {"result":"error 400: post syntax incorrect"};
+    return res.send(response);
   }
   db.User.findOne({where: {username: req.body.username}}).then(function(user) {
     if(!user) {
       res.statusCode = 404;
-      return res.send('Error 404: User does not exist.');
+      var response = {"result":"error 404: user does not exist"};
+      return res.send(response);
     }
     var tokenExpiry = tokenExpiration(60);
     //compare plaintext password to the hashed password in db
@@ -37,19 +38,20 @@ function login(req, res) {
         expires: new Date(Date.now() + tokenExpiry),
         UserId: user.id
       }).then(function(token) {
-        var t = {'token': token.token, 'message': "Logged in.", 'icon': user.icon};
+        var response = {'token': token.token, 'result': 'logged in.', 'icon': user.icon};
         //note: cookies do not work with local webpages
         res.cookie('token', token.token, {maxAge: tokenExpiry});
-        return res.send(t);
+        return res.send(response);
       });      
     } else {
       res.statusCode = 403;
-      return res.send('Error 403: incorrect password.');
+      var response = {"result":"error 403: incorrect password"};
+      return res.send(response);
     }
   });
 };
 
-/* logs the user out by clearing cookie on client and removing from db */
+/* logout clears the token stored in the database and clears the cookie */
 function logout(req, res){
   if(!req.cookies.token && !req.headers.token){
     res.statusCode = 404;
@@ -72,12 +74,9 @@ function logout(req, res){
 };
 
 
-/* Registers a user with username, password and security questions/answers */
+/* registers the user. must specify: 
+username, pass, 2 securityquestions & answers & icon*/
 function register(req, res) {
-  // username, password, security questions
-  //do 2 security questions
-  //currently only implement for 2 security questions
-
   if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('password')
     || !req.body.hasOwnProperty('questionOne') || !req.body.hasOwnProperty('questionTwo')
     || !req.body.hasOwnProperty('answerOne') || !req.body.hasOwnProperty('answerTwo')
@@ -95,6 +94,7 @@ function register(req, res) {
   var answerTwo = req.body.answerTwo;
   var userIcon = req.body.icon;
 
+//check if all user specified values are valid
   if(username.length < 2){
     res.statusCode == 400;
     var response = {"result":"username too short: minimum of 2 characters"};
@@ -114,7 +114,7 @@ function register(req, res) {
   }
 
 
-
+  //everything is OK, so lets try and create new user
   db.User.findOne({where: {username: req.body.username}}).then(function(user) {
     if(!user) {
       //make sure that user doesn't exist, so we can create another user
@@ -153,19 +153,22 @@ function securityQuestions(req, res){
   //security questions to be displayed when username is entered
   if(!req.body.hasOwnProperty('username')) {
     res.statusCode = 400;
-    return res.send('Error 400: Post syntax incorrect.');
+    var response = {"result": "error 400: post syntax incorrect"};
+    return res.send(response);
   }
 
   db.SecurityQuestions.findOne({where: {username: req.body.username}}).then(function(questions) {
     if (!questions) {
       res.statusCode = 404;
-      return res.send('Error 404: User does not exist.');
+      var response = {"result": "error 404: user does not exist"};
+      return res.send(response);
     }
     var response = {"question_one":questions.questionOne, "question_two":questions.questionTwo};
     return res.send(response);
   });
 }
 
+/* given a username & 2 answers to check if they are correct for the specified user */
 function securityQuestionAnswer(req, res){
   //need username again to check answers
   if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('answer_one') || !req.body.hasOwnProperty('answer_two')) {
@@ -180,18 +183,19 @@ function securityQuestionAnswer(req, res){
     }
     var answerOne = questions.answerOne;
     var answerTwo = questions.answerTwo;
+
+    var tokenExpiry = tokenExpiration(60);
     if(bcrypt.compareSync(req.body.answer_one, answerOne) && bcrypt.compareSync(req.body.answer_two, answerTwo)){
       //correct security answers, so let's give the user a token to change their password
       db.User.findOne({where: {username: req.body.username}}).then(function(user) {
           db.Token.create({
             token: crypto.randomBytes(32).toString('hex'),
-            expires: new Date(Date.now() + 10*60000),
+            expires: new Date(Date.now() + tokenExpiry),
             UserId: user.id
           }).then(function(token) {
-
-            var response = {'token': token.token, 'message': "Logged in."};
+            var response = {'token': token.token, 'result': "logged in."};
             //note: cookies do not work with local webpages
-            res.cookie('token', token.token, {maxAge: 10*60000});
+            res.cookie('token', token.token, {maxAge: tokenExpiry});
             return res.send(response);
           });
       });
@@ -206,11 +210,12 @@ function securityQuestionAnswer(req, res){
 }
 
 
-
+/* if a user is currently authenticated, this will change the users password to the specified password */
 function resetPassword(req, res){
   if(!req.body.hasOwnProperty('password')) {
     res.statusCode = 400;
-    return res.send('Error 400: Post syntax incorrect.');
+    var response = {"result": "error 400: post syntax incorrect"};
+    return res.send(response);
   }
 
   if(password.length < 4){
@@ -229,11 +234,13 @@ function resetPassword(req, res){
   });
 };
 
-
+/* checks the token to make sure the user is still authenticated
+checks by either the cookie in the request or with a header provided */
 function check_token(req, res, callback){
   if(!req.cookies.token && !req.headers.token) {
     res.statusCode = 403;
-    return res.send('Error 403: Not logged in.');
+    var response = {"result":"error 403: not logged in"};
+    return res.send(response);
   }
   var token = req.cookies.token || req.headers.token;
   db.Token.findOne({where: {token: token}}).then(function(token) {
@@ -246,7 +253,8 @@ function check_token(req, res, callback){
       });
     } else {
       res.statusCode = 403;
-      return res.send('Error 403: Token has expired.');
+      var response = {"result":"error 403: token expired"};
+      return res.send(response);
     }
   }); 
 };
