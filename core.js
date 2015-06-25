@@ -70,46 +70,28 @@ db.sequelize.sync({ force: true }).then(function(){
       icon: "nz.png"
     }).then(function (user2) {
       user.addFollowers(user2);
-      createTestUsers();
-      db.SecurityQuestions.create({
-        username: 'admin',
-        questionOne: 'whats my name',
-        questionTwo: 'whats my last name',
-        answerOne: auth.hashPassword('daniel'),
-        answerTwo: auth.hashPassword('cole')
-      });
+      var question = {
+       "question" : "What is one of the main weapons the people of Vanuatu hunt with?",
+       "trophy" : "bow",
+       "choice1" : "Gun",
+       "choice2" : "Bow and Arrow",
+       "choice3" : "Knives",
+       "choice4" : "Sword",
+       "answer" : "Bow and Arrow",
+      }
+      db.Question.create(question);
+      question = {
+       "question" : "The red-bellied fruit dove was named because of the red patch that sits on its belly and the top of its head, what colour is the rest of the red-bellied fruit dove?",
+       "trophy" : "red-bellied-fruit",
+       "choice1" : "Green",
+       "choice2" : "Blue",
+       "choice3" : "Orange",
+       "choice4" : "Purple",
+       "answer" : "Green",
+      }
+      db.Question.create(question);
     });
   });
-  
-
 });
-
-function createTestUsers(){
-db.User.create({
-      username: 'test1',
-      password: 'test',
-      icon: "nz.png"
-    })
-db.User.create({
-      username: 'test2',
-      password: 'test',
-      icon: "nz.png"
-    })
-db.User.create({
-      username: 'test3',
-      password: 'test',
-      icon: "nz.png"
-    })
-db.User.create({
-      username: 'test4',
-      password: 'test',
-      icon: "nz.png"
-    })
-db.User.create({
-      username: 'test5',
-      password: 'test',
-      icon: "nz.png"
-    })
-}
 
 

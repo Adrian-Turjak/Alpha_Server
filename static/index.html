@@ -1,48 +1,153 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Quotes and stuff</title>
+  <title>Map It! - Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <script src="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <style type="text/css">
+    body{
+      background-color: #859A9D;
+    }
     .floatingWindow{
       position: relative;      
-      margin: auto;      
-      background-color: #99CCFF;
-      box-shadow: 3px 3px 1px #888888;
-    }
-    #content{
-      max-width: 800px;
-      max-height: 500px;
-      display: none;
+      margin: auto;
+      padding: 10px;
+      background-color: #DFD3AF;
+      box-shadow: 3px 3px 1px #767574;
+      border-radius: 2px;
     }
     #login{
-      max-width: 200px;
-      height: 300px;
+      margin-top: 10%;
+      width: 300px;
+      /*display: none;*/
     }
+    #login-logo{
+      width: 200px;
+      height: 200px;
+      background: url("imgs/logo.png");
+      background-size: 200px;
+      margin: 0px auto;
+    }
+    #login-title{
+      width: 200px;
+      font-family: 'Lato', sans-serif;
+      margin: 0px auto;
+      color: #7f3e1d;
+      font-weight: bold;
+      text-shadow: none;      
+      margin-bottom: 30px;
+    }
+    #login-form{
+      width: 80%;
+      margin: 0px auto;
+    }
+    label{
+      font-family: 'Lato', sans-serif;
+      font-weight: bold;
+    }
+    input {
+      font-family: 'Lato', sans-serif;
+      width: 95%;
+      height: 25px;
+      margin: 10px 0 20px 0;
+      padding: 3px 6px;
+      border-radius: 5px;
+      font-size: 15px;
+      box-shadow:0 1px 3px rgba(0,0,0,.15);
+      border: none;
+      outline: none;
+    }
+
+    input[type=submit] {
+      width: 40%;
+      border-radius: 5px;
+      font-size: 18px;
+      box-shadow:0 1px 3px rgba(0,0,0,.15);
+      color: white;
+      background-color:#7f3e1d;
+      font-weight: normal;
+      text-shadow: none;
+      border: none;
+    }
+    #content{
+      display: none;
+    }
+    #header{
+      width: 500px;
+      margin: 70px auto;
+    }
+    #header-title{
+      position: absolute;
+      left: 50%;
+      top: 0px;
+      width: 300px;
+      font-family: 'Lato', sans-serif;
+      color: #7F3E1D;
+      font-weight: bold;
+      text-shadow: none;
+    }
+    #logout{
+      position: absolute;
+      width: 200px;
+      right: 65%;
+      top: 15px;
+    }
+    #questions{
+      position: absolute;
+      left: 40%;
+      width: 500px;
+      margin-left: 10px;
+      padding-top: 50px;
+    }
+    #reload{
+      width: 50px;
+      height: 50px;
+      background: url("imgs/refresh.png");
+      background-size: 50px;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+    #add_question{
+      position: absolute;
+      right: 60%;
+      width: 300px;
+    }
+    
   </style>
 </head>
 <body>
 <div id="login" class="floatingWindow">
   <div id="message"></div>
-  <label for="username-text">Login:</label>
-  <label for="username-text">username:</label>
-  <input name="username-text" id="username-text" value="" type="text">
-  <label for="password-text">password:</label>
-  <input name="password-text" id="password-text" value="" type="password">
-  <input type="submit" value="Login" id="login_submit" />
-</div>
-<div id="content" class="floatingWindow">
-  <div id="logout">
-    <input type="submit" value="Logout" id="logout_submit" />
+  <div id="login-logo">
   </div>
-  <div id="questions">
+  <div id="login-title">
+    <h2>Map it! - Admin</h2>
+  </div>
+  <div id="login-form">
+    <label for="username-text">username:</label>
+    <input name="username-text" id="username-text" value="" type="text">
+    <label for="password-text">password:</label>
+    <input name="password-text" id="password-text" value="" type="password">
+    <input type="submit" value="Login" id="login_submit" />
+  </div>
+</div>
+<div id="content">
+  <div id="header">
+    <div id="header-title">
+      <h1>Question Manager</h1>
+    </div>
+    <div id="logout">
+      <input type="submit" value="Logout" id="logout_submit" />
+    </div>
+  </div>  
+  <div id="questions" class="floatingWindow">
+    <div id="reload">
+    </div>
     <ul id="questions_list">
     </ul>
   </div>
-  <div id="add_question">
+  <div id="add_question" class="floatingWindow">
     <label for="question-text">question:</label>
     <input name="question-text" id="question-text" value="" type="text">
     <label for="trophy-text">trophy:</label>
@@ -64,22 +169,33 @@
 </div>
 
 <script type="text/javascript">
-$(document).bind('pageinit', function() {
+$(document).ready(function() {
 
-  $.ajaxSetup ({
-    cache: false
-  });
+  var server_url = "https://polar-lowlands-3170.herokuapp.com/";
 
-  var server_url = document.URL;
+  function refresh_questions() {
+    $.ajax({
+         url: server_url + "quiz/questions/all",
+         type: "GET"
+      }).done(function(data){
+        $("#questions_list").html("");          
+        for (i = 0; i < data.questions.length; i++) { 
+          $("#questions_list").append(
+            "<li><div class='question'><div class='question_title'><p>"+ data.questions[i].question +"</p></div><div class='question_trophy'><p>"+ data.questions[i].trophy +"</p></div><div class='question_choices'><p>"+ data.questions[i].choices +"</p></div><div class='question_answer'><p>"+ data.questions[i].answer +"</p></div></div></li>"
+          );
+        }
+        $("#result").html("<p><b>"+data+"</b></p>");
+    });
+  }
 
-  $( "#button10" ).bind( "click", function(event, ui) {
-    var question = $("#text10").val();
-    var trophy = $("#text11").val();
-    var choice1 = $("#text12").val();
-    var choice2 = $("#text13").val();
-    var choice3 = $("#text14").val();
-    var choice4 = $("#text15").val();
-    var answer = $("#text16").val();
+  $( "#question_submit" ).bind( "click", function() {
+    var question = $("#question-text").val();
+    var trophy = $("#trophy-text").val();
+    var choice1 = $("#choice1-text").val();
+    var choice2 = $("#choice2-text").val();
+    var choice3 = $("#choice3-text").val();
+    var choice4 = $("#choice4-text").val();
+    var answer = $("#answer-text").val();
     var jsonUrl = server_url + "quiz/questions";
     var question = {
      "question" : question,
@@ -92,48 +208,39 @@ $(document).bind('pageinit', function() {
     };
     $.post(jsonUrl, question, function(data) {
       console.log(data);
+      $("#question-text").val("");
+      $("#trophy-text").val("");
+      $("#choice1-text").val("");
+      $("#choice2-text").val("");
+      $("#choice3-text").val("");
+      $("#choice4-text").val("");
+      $("#answer-text").val("");
+      refresh_questions();
     }, 'json');
   });
-  $( "#button11" ).bind( "click", function(event, ui) {
-    var question_id = $("#text17").val();
-    var number_of_tries = $("#text18").val();
-    var jsonUrl = server_url + "quiz/answer";
-    var question = {
-     "id" : question_id,
-     "tries" : number_of_tries,
-    };
-    $.post(jsonUrl, question, function(data) {
-      console.log(data);
-    }, 'json');
-  });
-  $( "#button12" ).bind( "click", function(event, ui) {
-    $.ajax({
-         url: server_url + "quiz/questions/all",
-         type: "GET"
-      }).done(function(data){
-        console.log(data);
-        $("#result").html("<p><b>"+data+"</b></p>");
-    });
-  });
 
+  $( "#reload" ).bind( "click", refresh_questions);
 
-  $( "#login_submit" ).bind( "click", function(event, ui) {
+  $( "#login_submit" ).click(function(event, ui) {
     var username = $("#username-text").val();
     var password = $("#password-text").val();
     var jsonUrl = server_url + "auth/login";
     var user = { "username" : username, "password" : password};
     $.post(jsonUrl, user, function(data) {
-      $("#content").css("display","inline");
+      $("#username-text").val("");      
+      $("#password-text").val("");
+      refresh_questions();
+      $("#content").css("display","block");
       $("#login").css("display","none");
     }, 'json');
   });
 
-  $( "#logout_submit" ).bind( "click", function(event, ui) {
+  $( "#logout_submit" ).click(function(event, ui) {
     var jsonUrl = server_url + "auth/logout";
     $.post(jsonUrl, function(data) {
       $("#message").html("<p><b>Logged out.</b></p>");
       $("#content").css("display","none");
-      $("#login").css("display","inline");
+      $("#login").css("display","block");
     }, 'json');
   });
 

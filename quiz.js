@@ -89,6 +89,9 @@ function answer_question(req, res) {
       user.score = user.score + score;
       user.save();
       user.addQuestions(question);
+      res.statusCode = 200;
+      var response = {"result": "Question answered."};
+      return res.send(response);
     })
   });
 };
@@ -157,6 +160,7 @@ function get_all_questions(req, res) {
         for (i = 0; i < questions.length; i++) { 
           all_questions.questions.push({
             "id": questions[i].id,
+            "trophy": questions[i].trophy,
             "question": questions[i].question,
             "choices": [
               questions[i].choice1,
