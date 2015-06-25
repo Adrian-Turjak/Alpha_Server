@@ -12,16 +12,19 @@ function hashPassword (password) {
   return hash;
 };
 
+
 /* helper function for setting a token expiration time, returns in minutes specified */
 function tokenExpiration(minutes){
   return minutes*60000;
 }
 
+
 /* if successful logs the user in and creates a new token for authentication */
 function login(req, res) {
-  if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('password')) {
+  errors = utils.check_body(req, ["username", "password"]);
+  if(errors.length > 0){
     res.statusCode = 400;
-    var response = {"result":"error 400: post syntax incorrect"};
+    var response = {"errors": errors};
     return res.send(response);
   }
   db.User.findOne({where: {username: req.body.username}}).then(function(user) {
@@ -51,6 +54,7 @@ function login(req, res) {
   });
 };
 
+
 /* logout clears the token stored in the database and clears the cookie */
 function logout(req, res){
   if(!req.cookies.token && !req.headers.token){
@@ -77,12 +81,13 @@ function logout(req, res){
 /* registers the user. must specify: 
 username, pass, 2 securityquestions & answers & icon*/
 function register(req, res) {
-  if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('password')
-    || !req.body.hasOwnProperty('questionOne') || !req.body.hasOwnProperty('questionTwo')
-    || !req.body.hasOwnProperty('answerOne') || !req.body.hasOwnProperty('answerTwo')
-    || !req.body.hasOwnProperty('icon')) {
+  errors = utils.check_body(req, [
+    "username", "password", "questionOne", "questionTwo",
+    "answerOne", "answerTwo", "icon"
+  ]);
+  if(errors.length > 0){
     res.statusCode = 400;
-    var response = {"result":"error 400: Post syntax incorrect"};
+    var response = {"errors": errors};
     return res.send(response);
   }
 
@@ -112,7 +117,6 @@ function register(req, res) {
     var response = {"result":"answer one too short: minimum of 4 characters"};
     return res.send(response);
   }
-
 
   //everything is OK, so lets try and create new user
   db.User.findOne({where: {username: req.body.username}}).then(function(user) {
@@ -151,9 +155,10 @@ function register(req, res) {
 /* Takes a username and returns the security questions associated with it */
 function securityQuestions(req, res){
   //security questions to be displayed when username is entered
-  if(!req.body.hasOwnProperty('username')) {
+  errors = utils.check_body(req, ["username",]);
+  if(errors.length > 0){
     res.statusCode = 400;
-    var response = {"result": "error 400: post syntax incorrect"};
+    var response = {"errors": errors};
     return res.send(response);
   }
 
@@ -168,12 +173,17 @@ function securityQuestions(req, res){
   });
 }
 
+
 /* given a username & 2 answers to check if they are correct for the specified user */
 function securityQuestionAnswer(req, res){
   //need username again to check answers
-  if(!req.body.hasOwnProperty('username') || !req.body.hasOwnProperty('answer_one') || !req.body.hasOwnProperty('answer_two')) {
+  errors = utils.check_body(req, [
+    "username", "answer_one", "answer_two"
+  ]);
+  if(errors.length > 0){
     res.statusCode = 400;
-    return res.send('Error 400: Post syntax incorrect.');
+    var response = {"errors": errors};
+    return res.send(response);
   }
 
   db.SecurityQuestions.findOne({where: {username: req.body.username}}).then(function(questions) {
@@ -233,6 +243,7 @@ function resetPassword(req, res){
     res.send(response);
   });
 };
+
 
 /* checks the token to make sure the user is still authenticated
 checks by either the cookie in the request or with a header provided */

@@ -1,8 +1,9 @@
 var db = require('./models');
 var auth = require('./auth');
+var utils = require('./utils');
 
 
-function get_trophies(req, res, user) {
+function get_trophies(req, res) {
   return auth.check_token(req, res, function (req, res, user){
     user.getTrophies().then(function(trophies){
       t = {
@@ -17,11 +18,17 @@ function get_trophies(req, res, user) {
       return res.send(t);
     });
   });
-};;
+};
 
 
-function add_trophy(req, res, user) {
+function add_trophy(req, res) {
   return auth.check_token(req, res, function (req, res, user){
+    errors = utils.check_body(req, ["name", "country"]);
+    if(errors.length > 0){
+      res.statusCode = 400;
+      var response = {"errors": errors};
+      return res.send(response);
+    }
     db.Trophy.find({
       where: {name: req.body.name, country: req.body.country}
     }).then(function (trophy){
@@ -44,7 +51,7 @@ function add_trophy(req, res, user) {
 };
 
 
-function get_score(req, res, user) {
+function get_score(req, res) {
   return auth.check_token(req, res, function (req, res, user){
     score = {
       "myscore": user.score,
@@ -64,8 +71,14 @@ function get_score(req, res, user) {
 };
 
 
-function follow_user(req, res, user) {
+function follow_user(req, res) {
   return auth.check_token(req, res, function (req, res, user){
+    errors = utils.check_body(req, ["username",]);
+    if(errors.length > 0){
+      res.statusCode = 400;
+      var response = {"errors": errors};
+      return res.send(response);
+    }
     db.User.findOne({
       where: {username: req.body.username}
     }).then(function(user2){
@@ -86,8 +99,14 @@ function follow_user(req, res, user) {
 };
 
 
-function unfollow_user(req, res, user) {
+function unfollow_user(req, res) {
   return auth.check_token(req, res, function (req, res, user){
+    errors = utils.check_body(req, ["username",]);
+    if(errors.length > 0){
+      res.statusCode = 400;
+      var response = {"errors": errors};
+      return res.send(response);
+    }
     db.User.findOne({
       where: {username: req.body.username}
     }).then(function(user2){
