@@ -228,6 +228,8 @@ function resetPassword(req, res){
     return res.send(response);
   }
 
+  var password = req.body.password;
+
   if(password.length < 4){
     res.statusCode == 400;
     var response = {"result":"password too short: minimum of 4 characters"};
