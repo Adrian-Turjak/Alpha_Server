@@ -3,6 +3,13 @@ var auth = require('./auth');
 var utils = require('./utils');
 
 
+/*
+  Returns the list of trophies that the user has 
+  in the following json:
+  {"trophies": [
+      {"name": <trophy name>, "country": <country name>}, ...
+  ]}
+*/
 function get_trophies(req, res) {
   return auth.check_token(req, res, function (req, res, user){
     user.getTrophies().then(function(trophies){
@@ -21,6 +28,11 @@ function get_trophies(req, res) {
 };
 
 
+/*
+  Add a trophy to the logged in user.
+  requires:
+  {"name": <trophy name>, "country": <country name>}
+*/
 function add_trophy(req, res) {
   return auth.check_token(req, res, function (req, res, user){
     errors = utils.check_body(req, ["name", "country"]);
@@ -51,6 +63,10 @@ function add_trophy(req, res) {
 };
 
 
+/*
+  Get the score for the user, and a list of scores for everyone they are following.
+  returns"
+*/
 function get_score(req, res) {
   return auth.check_token(req, res, function (req, res, user){
     score = {
@@ -71,6 +87,9 @@ function get_score(req, res) {
 };
 
 
+/*
+  
+*/
 function follow_user(req, res) {
   return auth.check_token(req, res, function (req, res, user){
     errors = utils.check_body(req, ["username",]);
@@ -99,6 +118,9 @@ function follow_user(req, res) {
 };
 
 
+/*
+  
+*/
 function unfollow_user(req, res) {
   return auth.check_token(req, res, function (req, res, user){
     errors = utils.check_body(req, ["username",]);
