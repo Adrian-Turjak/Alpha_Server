@@ -195,12 +195,6 @@ function securityQuestionAnswer(req, res){
     var answerOne = questions.answerOne;
     var answerTwo = questions.answerTwo;
 
-    var username = req.body.username;
-
-    console.log(username);
-    console.log(req.body.answer_one);
-    console.log(req.body.answer_two);
-
     //5 minutes to change password
     var tokenExpiry = tokenExpiration(5);
     if(bcrypt.compareSync(req.body.answer_one, answerOne) && bcrypt.compareSync(req.body.answer_two, answerTwo)){
