@@ -69,11 +69,39 @@ db.sequelize.sync({ force: true }).then(function(){
       icon: "nz.png"
     }).then(function (user2) {
       user.addFollowers(user2);
+      createTestUsers();
     });
   });
   
 
 });
 
+function createTestUsers(){
+db.User.create({
+      username: 'test1',
+      password: 'test',
+      icon: "nz.png"
+    })
+db.User.create({
+      username: 'test2',
+      password: 'test',
+      icon: "nz.png"
+    })
+db.User.create({
+      username: 'test3',
+      password: 'test',
+      icon: "nz.png"
+    })
+db.User.create({
+      username: 'test4',
+      password: 'test',
+      icon: "nz.png"
+    })
+db.User.create({
+      username: 'test5',
+      password: 'test',
+      icon: "nz.png"
+    })
+}
 
 

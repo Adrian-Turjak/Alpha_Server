@@ -194,14 +194,16 @@ function securityQuestionAnswer(req, res){
     var answerOne = questions.answerOne;
     var answerTwo = questions.answerTwo;
 
-    var tokenExpiry = tokenExpiration(60);
+    //5 minutes to change password
+    var tokenExpiry = tokenExpiration(5);
     if(bcrypt.compareSync(req.body.answer_one, answerOne) && bcrypt.compareSync(req.body.answer_two, answerTwo)){
       //correct security answers, so let's give the user a token to change their password
       db.User.findOne({where: {username: req.body.username}}).then(function(user) {
           db.Token.create({
             token: crypto.randomBytes(32).toString('hex'),
             expires: new Date(Date.now() + tokenExpiry),
-            UserId: user.id
+            UserId: user.id,
+            reset_token: true
           }).then(function(token) {
             var response = {'token': token.token, 'result': "logged in."};
             //note: cookies do not work with local webpages
@@ -234,10 +236,21 @@ function resetPassword(req, res){
     return res.send(response);
   }
   //they need a token to change password...
-  return auth.check_token(req, res, function(req, res, user){
+  return auth.check_token(req, res, function(req, res, user, token){
     //need to make sure user is authenticated
+    if(!token.reset_token){
+      res.statusCode = 403;
+      var response = {"errors":["unauthorised access. requires reset token"]};
+      return res.send(response);
+    }
+    //user successfully changed password, so let's change their access token
+    var tokenExpiry = tokenExpiration(60);
     user.password = hashPassword(req.body.password);
     user.save();
+    token.expires = new Date(Date.now() + tokenExpiry);
+    token.reset_token = false;
+    token.save();
+    res.cookie('token', token.token, {maxAge: tokenExpiry});
     res.statusCode = 201; //CREATED
     var response = {"result":"successfully password changed"};
     res.send(response);
@@ -260,7 +273,7 @@ function check_token(req, res, callback){
       db.User.findOne({where: {id: token.UserId}}).then(function(user){
         token.expires = new Date(Date.now() + tokenExpiration(60));
         token.save();
-        return callback(req, res, user);
+        return callback(req, res, user, token);
       });
     } else {
       res.statusCode = 403;
