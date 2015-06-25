@@ -88,7 +88,8 @@ function get_score(req, res) {
 
 
 /*
-  
+  Addes the given user (if they exist) to your following list
+  so you can compare their score to yours.
 */
 function follow_user(req, res) {
   return auth.check_token(req, res, function (req, res, user){
@@ -119,7 +120,7 @@ function follow_user(req, res) {
 
 
 /*
-  
+  removes the given user from your following list.
 */
 function unfollow_user(req, res) {
   return auth.check_token(req, res, function (req, res, user){

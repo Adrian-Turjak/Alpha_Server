@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Quotes and stuff</title>
+    <title>api calls</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -30,6 +30,7 @@
 
         <div id="queries" style="display: none;">
           <input type="submit" value="Get Quiz" id="button1" />
+          <input type="submit" value="get all questions" id="button12" />
           <input type="submit" value="get Trophies" id="button5" />
           <input type="submit" value="get score" id="button6" />
           <label for="text-1">name:</label>
@@ -66,8 +67,8 @@
 
 
 
-      	  <!-- put the result here -->
-      	  <div id="result"  class="functions"></div>
+          <!-- put the result here -->
+          <div id="result"  class="functions"></div>
         </div>
 
         <input type="submit" value="logout" id="button4" />
@@ -174,6 +175,15 @@ $(document).bind('pageinit', function() {
     $.post(jsonUrl, question, function(data) {
       console.log(data);
     }, 'json');
+  });
+  $( "#button12" ).bind( "click", function(event, ui) {
+    $.ajax({
+         url: server_url + "quiz/questions/all",
+         type: "GET"
+      }).done(function(data){
+        console.log(data);
+        $("#result").html("<p><b>"+data+"</b></p>");
+    });
   });
 
 

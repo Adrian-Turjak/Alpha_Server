@@ -1,85 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Quotes and stuff</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+  <title>Quotes and stuff</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+  
+  <style type="text/css">
+    .floatingWindow{
+      position: relative;      
+      margin: auto;      
+      background-color: #99CCFF;
+      box-shadow: 3px 3px 1px #888888;
+    }
+    #content{
+      max-width: 800px;
+      max-height: 500px;
+      display: none;
+    }
+    #login{
+      max-width: 200px;
+      height: 300px;
+    }
+  </style>
 </head>
 <body>
-<!-- Start of first page -->
-<div data-role="page" id="foo">
-
-    <div data-role="header">
-        <h1>Quote Server!</h1>
-    </div><!-- /header -->
-
-    <div role="main" class="ui-content">
-
-        <div id="login"  class="functions">
-            <label for="text-2">Login:</label>
-            <label for="text-5">username:</label>
-            <input name="text-5" id="text5" value="admin" type="text">
-            <label for="text-6">password:</label>
-            <input name="text-7" id="text6" value="password" type="password">
-            <input type="submit" value="Submit Button" id="button3" />
-        </div>
-
-        <div id="queries" style="display: none;">
-          <input type="submit" value="Get Quiz" id="button1" />
-          <input type="submit" value="Get Quiz" id="button12" />
-          <input type="submit" value="get Trophies" id="button5" />
-          <input type="submit" value="get score" id="button6" />
-          <label for="text-1">name:</label>
-          <input name="text-1" id="text1" value="" type="text">
-          <label for="text-2">country:</label>
-          <input name="text-2" id="text2" value="" type="text">
-          <input type="submit" value="add trophy" id="button7" />
-          <label for="text-3">username:</label>
-          <input name="text-3" id="text3" value="" type="text">
-          <input type="submit" value="follow user" id="button8" />          
-          <input type="submit" value="unfollow user" id="button9" />
-
-          <label for="text-10">question:</label>
-          <input name="text-10" id="text10" value="" type="text">
-          <label for="text-11">trophy:</label>
-          <input name="text-11" id="text11" value="" type="text">
-          <label for="text-12">choice1:</label>
-          <input name="text-12" id="text12" value="" type="text">
-          <label for="text-13">choice2:</label>
-          <input name="text-13" id="text13" value="" type="text">
-          <label for="text-14">choice3:</label>
-          <input name="text-14" id="text14" value="" type="text">
-          <label for="text-15">choice4:</label>
-          <input name="text-15" id="text15" value="" type="text">
-          <label for="text-16">answer:</label>
-          <input name="text-16" id="text16" value="" type="text">
-          <input type="submit" value="add question" id="button10" />
-
-          <label for="text-17">question id:</label>
-          <input name="text-17" id="text17" value="" type="text">
-          <label for="text-18">number of tries:</label>
-          <input name="text-18" id="text18" value="" type="text">
-          <input type="submit" value="add question" id="button11" />
+<div id="login" class="floatingWindow">
+  <div id="message"></div>
+  <label for="username-text">Login:</label>
+  <label for="username-text">username:</label>
+  <input name="username-text" id="username-text" value="" type="text">
+  <label for="password-text">password:</label>
+  <input name="password-text" id="password-text" value="" type="password">
+  <input type="submit" value="Login" id="login_submit" />
+</div>
+<div id="content" class="floatingWindow">
+  <div id="logout">
+    <input type="submit" value="Logout" id="logout_submit" />
+  </div>
+  <div id="questions">
+    <ul id="questions_list">
+    </ul>
+  </div>
+  <div id="add_question">
+    <label for="question-text">question:</label>
+    <input name="question-text" id="question-text" value="" type="text">
+    <label for="trophy-text">trophy:</label>
+    <input name="trophy-text" id="trophy-text" value="" type="text">
+    <label for="choice1-text">choice1:</label>
+    <input name="choice1-text" id="choice1-text" value="" type="text">
+    <label for="choice2-text">choice2:</label>
+    <input name="choice2-text" id="choice2-text" value="" type="text">
+    <label for="choice3-text">choice3:</label>
+    <input name="choice3-text" id="choice3-text" value="" type="text">
+    <label for="choice4-text">choice4:</label>
+    <input name="choice4-text" id="choice4-text" value="" type="text">
+    <label for="answer-text">answer:</label>
+    <input name="answer-text" id="answer-text" value="" type="text">
+    <input type="submit" value="Add question" id="question_submit" />
+  </div>
 
 
-
-      	  <!-- put the result here -->
-      	  <div id="result"  class="functions"></div>
-        </div>
-
-        <input type="submit" value="logout" id="button4" />
-
-
-    </div><!-- /content -->
-
-    <div data-role="footer">
-        <h4>Page Footer</h4>
-    </div><!-- /footer -->
-</div><!-- /page -->
+</div>
 
 <script type="text/javascript">
 $(document).bind('pageinit', function() {
@@ -90,58 +72,6 @@ $(document).bind('pageinit', function() {
 
   var server_url = document.URL;
 
-  $( "#button1" ).bind( "click", function(event, ui) {
-    $.ajax({
-         url: server_url + "quiz/questions",
-         type: "GET"
-      }).done(function(data){
-        console.log(data);
-        $("#result").html("<p><b>"+data+"</b></p>");
-    });
-  });
-  $( "#button5" ).bind( "click", function(event, ui) {
-    $.ajax({
-         url: server_url + "user/trophies",
-         type: "GET"
-      }).done(function(data){
-        console.log(data);
-        $("#result").html("<p><b>"+data+"</b></p>");
-    });
-  });
-  $( "#button6" ).bind( "click", function(event, ui) {
-    $.ajax({
-         url: server_url + "user/score",
-         type: "GET"
-      }).done(function(data){
-        console.log(data);
-        $("#result").html("<p><b>"+data+"</b></p>");
-    });
-  });
-  $( "#button7" ).bind( "click", function(event, ui) {
-    var name = $("#text1").val();
-    var country = $("#text2").val();
-    var jsonUrl = server_url + "user/trophies";
-    var user = { "name" : name, "country" : country};
-    $.post(jsonUrl, user, function(data) {
-      console.log(data);
-    }, 'json');
-  });
-  $( "#button8" ).bind( "click", function(event, ui) {
-    var username = $("#text3").val();
-    var jsonUrl = server_url + "user/follow";
-    var user = { "username" : username};
-    $.post(jsonUrl, user, function(data) {
-      console.log(data);
-    }, 'json');
-  });
-  $( "#button9" ).bind( "click", function(event, ui) {
-    var username = $("#text3").val();
-    var jsonUrl = server_url + "user/unfollow";
-    var user = { "username" : username};
-    $.post(jsonUrl, user, function(data) {
-      console.log(data);
-    }, 'json');
-  });
   $( "#button10" ).bind( "click", function(event, ui) {
     var question = $("#text10").val();
     var trophy = $("#text11").val();
@@ -187,22 +117,23 @@ $(document).bind('pageinit', function() {
   });
 
 
-  $( "#button3" ).bind( "click", function(event, ui) {
-    var username = $("#text5").val();
-    var password = $("#text6").val();
+  $( "#login_submit" ).bind( "click", function(event, ui) {
+    var username = $("#username-text").val();
+    var password = $("#password-text").val();
     var jsonUrl = server_url + "auth/login";
     var user = { "username" : username, "password" : password};
     $.post(jsonUrl, user, function(data) {
-      alert("logged in.");
-      $("#login").html("<p><b>Logged in.</b></p>");
-      $("#queries").css("display","inline");
+      $("#content").css("display","inline");
+      $("#login").css("display","none");
     }, 'json');
   });
 
-  $( "#button4" ).bind( "click", function(event, ui) {
+  $( "#logout_submit" ).bind( "click", function(event, ui) {
     var jsonUrl = server_url + "auth/logout";
     $.post(jsonUrl, function(data) {
-      alert("logged out.");
+      $("#message").html("<p><b>Logged out.</b></p>");
+      $("#content").css("display","none");
+      $("#login").css("display","inline");
     }, 'json');
   });
 
