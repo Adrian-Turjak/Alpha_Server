@@ -70,6 +70,13 @@ db.sequelize.sync({ force: true }).then(function(){
     }).then(function (user2) {
       user.addFollowers(user2);
       createTestUsers();
+      db.SecurityQuestions.create({
+        username: 'admin',
+        questionOne: 'whats my name',
+        questionTwo: 'whats my last name',
+        answerOne: auth.hashPassword('daniel'),
+        answerTwo: auth.hashPassword('cole')
+      });
     });
   });
   

@@ -191,8 +191,15 @@ function securityQuestionAnswer(req, res){
       res.statusCode = 404;
       return res.send('Error 404: User does not exist.');
     }
+
     var answerOne = questions.answerOne;
     var answerTwo = questions.answerTwo;
+
+    var username = req.body.username;
+
+    console.log(username);
+    console.log(req.body.answer_one);
+    console.log(req.body.answer_two);
 
     //5 minutes to change password
     var tokenExpiry = tokenExpiration(5);
@@ -229,6 +236,8 @@ function resetPassword(req, res){
     var response = {"result": "error 400: post syntax incorrect"};
     return res.send(response);
   }
+
+  var password = req.body.password;
 
   if(password.length < 4){
     res.statusCode == 400;
