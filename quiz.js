@@ -2,14 +2,16 @@ var db = require('./models');
 var auth = require('./auth');
 
 
-// Returns a quiz of availible questions based on
-// which trophies the user has, and what questions
-// they have already answered
-// returns a json in the format:
-// {"questions": [
-//     {"id": n, "question": <some question>,
-//      "choices": [<some choice>,], "answer": <correct choice>},
-// ]}
+/* 
+  Returns a quiz of availible questions based on
+  which trophies the user has, and what questions
+  they have already answered
+  returns a json in the format:
+  {"questions": [
+      {"id": n, "question": <some question>,
+       "choices": [<some choice>, ... ], "answer": <correct choice>},
+  ]}
+*/
 function build_quiz(req, res) {
   return auth.check_token(req, res, function(req, res, user){
     // get the trophies the user already has.
@@ -67,10 +69,13 @@ function build_quiz(req, res) {
   });
 };
 
-// Updates the score for the user based on the number of tries and the point
-// value for the given question.
-// requires:
-// {"id": <question id>, "tries": <number of failed answered>}
+
+/*
+  Updates the score for the user based on the number of tries and the point
+  value for the given question.
+  requires:
+  {"id": <question id>, "tries": <number of failed answered>}
+*/
 function answer_question(req, res) {
   return auth.check_token(req, res, function(req, res, user){
     errors = utils.check_body(req, ["id", "tries"]);
@@ -88,12 +93,15 @@ function answer_question(req, res) {
   });
 };
 
-// if the user is admin, add a new question to the database.
-// requires:
-// {"question": <question>, "trophy": <related trophy>,
-//  "choice1": <choice>, "choice2": <choice>,
-//  "choice3": <choice>, "choice4": <choice>,
-//  "answer": <correct choice>,}
+
+/*
+  If the user is admin, add a new question to the database.
+  requires:
+  {"question": <question>, "trophy": <related trophy>,
+   "choice1": <choice>, "choice2": <choice>,
+   "choice3": <choice>, "choice4": <choice>,
+   "answer": <correct choice>,}
+ */
 function add_question(req, res) {
   return auth.check_token(req, res, function(req, res, user){
     if(user.admin){
@@ -127,10 +135,50 @@ function add_question(req, res) {
 };
 
 
+/* 
+  Returns all the questions.
+  returns a json in the format:
+  {"questions": [
+      {"id": n, "question": <some question>,
+       "choices": [<some choice>, ... ], "answer": <correct choice>},
+  ]}
+*/
+function get_all_questions(req, res) {
+  return auth.check_token(req, res, function(req, res, user){
+    if(!user.admin) {
+      res.statusCode = 403;
+      return res.send("Your user isn't allowed to use this endpoint.");
+    }
+    var all_questions = {
+      "questions": []
+    }
+    db.Question.findAll().then(function (questions) {
+      if(questions){
+        for (i = 0; i < questions.length; i++) { 
+          all_questions.questions.push({
+            "id": questions[i].id,
+            "question": questions[i].question,
+            "choices": [
+              questions[i].choice1,
+              questions[i].choice2,
+              questions[i].choice3,
+              questions[i].choice4
+            ],
+            "answer": questions[i].answer
+          });
+        }
+      }
+      return res.send(all_questions);
+    });
+  });
+};
+
+
 var quiz = {
     build_quiz: build_quiz,
     add_question: add_question,
-    answer_question: answer_question
+    answer_question: answer_question,
+    get_all_questions: get_all_questions
 
 };
 

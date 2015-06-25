@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
 // serve up files from this directory 
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + "/static/"));
 // make sure we use CORS to avoid cross domain problems
 app.use(cors());
 
@@ -35,8 +35,9 @@ app.post('/auth/securityQuestionAnswer', auth.securityQuestionAnswer);
 
 // quiz endpoints
 app.get('/quiz/questions', quiz.build_quiz);
-app.post('/quiz/questions', quiz.add_question);
 app.post('/quiz/answer', quiz.answer_question);
+app.post('/quiz/questions', quiz.add_question);
+app.get('/quiz/questions/all', quiz.get_all_questions);
 
 // user endpoints
 app.get('/user/trophies', user.get_trophies);
@@ -56,7 +57,7 @@ var server = app.listen(process.env.PORT, function() {
 // This drop all the tables, and create new ones.
 // Useful for development, but needs to be changed for production environments.
 
-db.sequelize.sync({ force: true }).then(function(){
+db.sequelize.sync({ force: false }).then(function(){
   db.User.create({
     username: 'admin',
     password: auth.hashPassword("password"),
